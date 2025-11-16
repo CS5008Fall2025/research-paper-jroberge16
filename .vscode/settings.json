@@ -1,0 +1,8 @@
+{
+    "cSpell.words": [
+        "HNSW"
+    ],
+    "files.associations": {
+        "stdbool.h": "c"
+    }
+}

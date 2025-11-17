@@ -3,6 +3,9 @@
         "HNSW"
     ],
     "files.associations": {
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "vector.h": "c"
     }
 }

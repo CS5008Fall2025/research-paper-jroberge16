@@ -3,14 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "hnsw.h"
+#include "supporting_data_structures/vector.h"
 
-
-
-
-void print_node(HNSW_Node){
-    printf("ID[%d]", HNSW_Node.id);
-
-    printf("");
-
-
+HNSW_INDEX* create_hnsw_index(){
+    
 }

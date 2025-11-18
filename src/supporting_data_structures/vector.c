@@ -139,6 +139,6 @@ void set_vector_element(Vector* vector, size_t index, const void *value) {
  * @param vector A pointer to the vector.
  * @return The value of the removed element, or -1 if the vector is empty.
  */
-int pop_vector_element(Vector* vector) {
+void* pop_vector_element(Vector* vector) {
     return remove_vector_element(vector, vector->count - 1); // Remove the last element
 }

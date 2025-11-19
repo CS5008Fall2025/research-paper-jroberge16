@@ -133,6 +133,7 @@ void set_vector_element(Vector* vector, size_t index, const void *value) {
         vector->single_element_size
     );
 }
+
 /**
  * Removes and returns the last element of the vector.
  * 

@@ -38,7 +38,7 @@ DistanceFunction get_distance_function(const char* metric_string){
     } else if (strcmp(metric_string, "cosine") == 0) {
         return &calculate_cosine_distance;
     }
-    perror("Unknown distance metric: please use: 'euclidean' or 'cosine'.\n");
+    perror("Unknown distance use: 'euclidean' or 'cosine'.\n");
     return NULL;
 }
 

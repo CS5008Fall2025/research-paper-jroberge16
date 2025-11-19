@@ -76,6 +76,7 @@ void test_vector(){
 int main() {
     printf("🧪 Testing Vector Implementation\n");
     test_vector();
+    printf("🥳 ALL TESTS PASSED\n");
 
 
 

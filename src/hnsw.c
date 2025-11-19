@@ -8,4 +8,5 @@
 
 HNSW_INDEX* create_hnsw_index(){
     
+    
 }

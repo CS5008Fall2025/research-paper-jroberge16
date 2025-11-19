@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-
+#include <string.h>
 #include "distance.h"
 
 
@@ -31,6 +31,20 @@ DistanceType calculate_cosine_distance(const DistanceType* vec1, const DistanceT
 
     return 1.0f - (dot_product / (sqrtf(norm1) * sqrtf(norm2)));
 }
+
+DistanceFunction get_distance_function(const char* metric_string){
+    if (strcmp(metric_string, "euclidean") == 0) {
+        return &calculate_euclidean_distance;
+    } else if (strcmp(metric_string, "cosine") == 0) {
+        return &calculate_cosine_distance;
+    }
+    perror("Unknown distance metric: please use: 'euclidean' or 'cosine'.\n");
+    return NULL;
+}
+
+
+
+
 
 
 

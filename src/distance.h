@@ -5,10 +5,12 @@
 
 #define DISTANCE_TYPE_MAX FLT_MAX
 
-typedef float DistanceType; 
+typedef float DistanceType;
+typedef DistanceType (*DistanceFunction)(const DistanceType* vec1, const DistanceType* vec2, int dimension);
+
 
 DistanceType calculate_euclidean_distance(const DistanceType* vec1, const DistanceType* vec2, int dimension);
 DistanceType calculate_cosine_distance(const DistanceType* vec1, const DistanceType* vec2, int dimension);
-
+DistanceFunction get_distance_function(const char* distance_metric_string);
 
 #endif

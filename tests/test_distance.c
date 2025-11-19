@@ -11,14 +11,16 @@ void test_distance(){
     DistanceType vec1[] = {1.0f, 1.0f};
     DistanceType vec2[] = {2.0f, 2.0f};
 
-    DistanceType euclidean_dist = calculate_euclidean_distance(vec1, vec2, dimension);
+    DistanceFunction distance_function = get_distance_function("euclidean");
+    DistanceType euclidean_dist = distance_function(vec1, vec2, dimension);
     DistanceType expected_euclidean = 1.4142135623731;
 
     assert(fabs(euclidean_dist - expected_euclidean) < 0.0001f);
+    printf("\t✅ Function getter\n");
     printf("\t✅ Euclidean distance test passed\n");
 
     DistanceType cosine_dist = calculate_cosine_distance(vec1, vec2, dimension);
-    DistanceType expected_cosine = 2.220446049250313e-16f; // 1 - (32 / (sqrt(14) * sqrt(77))) = 0.025368
+    DistanceType expected_cosine = 2.220446049250313e-16f;
 
     assert(fabs(cosine_dist - expected_cosine) < 0.0001f);
     printf("\t✅ Cosine distance test passed\n");

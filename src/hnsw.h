@@ -10,6 +10,7 @@
 #define ARRAY_SIZE 768
 
 #include "supporting_data_structures/vector.h"
+#include "distance.h"
 
 
 typedef struct HNSW_Node {
@@ -30,6 +31,7 @@ typedef struct HNSW_INDEX {
     Vector* nodes;
     int max_layer;
     int size;
+    DistanceFunction distance_function;
 } HNSW_INDEX;
 
 

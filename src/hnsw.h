@@ -12,6 +12,7 @@
 #include "supporting_data_structures/vector.h"
 #include "distance.h"
 
+typedef struct HNSW_Node HNSW_Node; 
 
 typedef struct HNSW_Node {
     int id;
@@ -34,5 +35,12 @@ typedef struct HNSW_INDEX {
     DistanceFunction distance_function;
 } HNSW_INDEX;
 
+HNSW_INDEX* create_hnsw_index(int M, int ef_construction, 
+                            float ml, int vector_dim,
+                            const char* distance_metric_string,
+                             int starting_capacity,
+                             int max_layer,
+                             int M_max
+                        );
 
 #endif

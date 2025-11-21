@@ -6,6 +6,17 @@
         "stdbool.h": "c",
         "type_traits": "c",
         "utility": "c",
-        "vector.h": "c"
+        "vector.h": "c",
+        "vector": "c",
+        "distance.h": "c",
+        "priority_que.h": "c",
+        "optional": "c",
+        "system_error": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "memory": "c",
+        "limits": "c",
+        "stdint.h": "c"
     }
 }

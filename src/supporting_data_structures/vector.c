@@ -68,7 +68,7 @@ void insert_vector_element(Vector* vector, size_t index, const void *value) {
         return; // Index is out of bounds
     }
     if (vector->count == vector->capacity) {
-        __vector_resize(vector); // Double the capacity if full
+        __vector_resize(vector);
     }
     if (index < vector->count) {
         memmove(

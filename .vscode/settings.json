@@ -17,6 +17,9 @@
         "tuple": "c",
         "memory": "c",
         "limits": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "cstdlib": "c",
+        "istream": "c",
+        "bench_utils.h": "c"
     }
 }

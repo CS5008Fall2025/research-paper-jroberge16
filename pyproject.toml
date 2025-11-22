@@ -1,0 +1,25 @@
+[project]
+name = "research-paper-jroberge16"
+version = "0.1.0"
+package-mode = false
+
+description = ""
+authors = [
+    {name = "jroberge16",email = "jwr1015@outlook.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel (>=7.1.0,<8.0.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+    "seaborn (>=0.13.2,<0.14.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+

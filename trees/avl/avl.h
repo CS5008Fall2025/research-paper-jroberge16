@@ -17,14 +17,13 @@ struct AVLIndex {
     int total_operations;
 };
 
-AVLIndex* create_tree();
-AVLIndex* insertAVL(AVLIndex* index, int value);
-AVLIndex* delete_value(AVLIndex *index, int value);
-AVLNode* searchAVL(AVLIndex* index, int value);
-int get_height(AVLNode* node);
+AVLIndex* create_avl_tree();
+AVLIndex* insert_avl(AVLIndex* index, int value);
+AVLIndex* delete_avl_value(AVLIndex *index, int value);
+AVLNode* search_avl(AVLIndex* index, int value);
+int get_avl_height(AVLNode* node);
 int get_balance(AVLNode* node);
-void print_tree(AVLIndex* index);
-void free_tree(AVLIndex* index);
+void free_avl_tree(AVLIndex* index);
 
 
 #endif

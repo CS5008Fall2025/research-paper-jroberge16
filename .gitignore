@@ -1,0 +1,9 @@
+# To Big for git
+./data/samples/*
+
+# .venv folder
+.venv/
+
+# .vscode folder
+.vscode/
+

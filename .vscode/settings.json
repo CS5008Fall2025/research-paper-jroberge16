@@ -20,6 +20,8 @@
         "stdint.h": "c",
         "cstdlib": "c",
         "istream": "c",
-        "bench_utils.h": "c"
+        "bench_utils.h": "c",
+        "stdlib.h": "c",
+        "ratio": "c"
     }
 }

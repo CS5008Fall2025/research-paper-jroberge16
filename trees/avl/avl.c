@@ -241,6 +241,7 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
         cur->left = __delete_avl_value(cur->left, value, deleted);
     }
     else if(value > cur->value){
+        
         cur->right = __delete_avl_value(cur->right, value, deleted);
     }
     // deleting node

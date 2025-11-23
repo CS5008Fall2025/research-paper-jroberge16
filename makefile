@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -I.
 
 # Main
-MAIN = trees/main.c trees/avl/avl.c trees/binnary/binnary.c trees/benchmarking/avl_benchmarks.c trees/benchmarking/bench_utils.c
+MAIN = trees/main.c trees/avl/avl.c trees/binnary/binnary.c trees/benchmarking/avl_benchmarks.c trees/benchmarking/bench_utils.c trees/benchmarking/bin_benchmarks.c
 
 # Tests
 TEST_AVL = test/test_avl.c trees/avl/avl.c

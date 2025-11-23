@@ -15,7 +15,7 @@ struct BINNode {
 struct BINIndex {
     BINNode* root;
     int total_Nodes;
-    int total_operations;
+    long long total_operations;
 };
 
 BINIndex* create_binary_tree();

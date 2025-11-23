@@ -14,7 +14,7 @@ struct AVLNode {
 struct AVLIndex {
     AVLNode* root;
     int total_Nodes;
-    int total_operations;
+    long long int total_operations;
 };
 
 AVLIndex* create_avl_tree();

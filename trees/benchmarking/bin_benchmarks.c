@@ -1,17 +1,19 @@
-#include "avl_benchmarks.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "../avl/avl.h"
+
+#include "bin_benchmarks.h"
+#include "../binnary/binnary.h"
 #include "bench_utils.h"
 
+#include "bin_benchmarks.h"
 
-static void __get_insertion_time(char* benchmark_file, char* benchmark_name, char* file_save_name, int n_skip);
+typedef BENCH_OPERATION BIN_OPERATION;
 
 
+static void __get_insertion_time(char* benchmark_file, char* benchmark_name, char* file_save_name, int total_tree_size, int n_skip);
 
-typedef enum {INSERT_OP, SEARCH_OP, DELETE_OP} AVL_OPERATION;
 
 
 /**
@@ -21,16 +23,16 @@ typedef enum {INSERT_OP, SEARCH_OP, DELETE_OP} AVL_OPERATION;
  * @param operation to perform
  * @param funcs ptrs to functions
  */
-void run_avl_function(AVLIndex* tree, int value, int operation){
+void run_bin_function(BINIndex* tree, int value, int operation){
     switch(operation){
         case INSERT_OP:
-            insert_avl(tree, value);
+            insert_binary(tree, value);
             break;
         case SEARCH_OP:
-            search_avl(tree, value);
+            search_binary(tree, value);
             break;
         case DELETE_OP:
-            delete_avl_value(tree, value);
+            delete_binary_value(tree, value);
             break;
         default:
             printf("Invalid operation\n");
@@ -38,12 +40,12 @@ void run_avl_function(AVLIndex* tree, int value, int operation){
     }
 }
 
-void cleanup_benchmark(char** results, int max_results, AVLIndex* tree){
+void cleanup_bin_benchmark(char** results, int max_results, BINIndex* tree){
     free_results(results, max_results);
-    free_avl_tree(tree);
+    free_binary_tree(tree);
 }
 
-static void __get_insertion_time(char* benchmark_file, char* benchmark_name, char* file_save_name, int n_skip){
+static void __get_insertion_time(char* benchmark_file, char* benchmark_name, char* file_save_name, int total_tree_size, int n_skip){
     printf("⌚ Gathering Insertion Time\n");
 
     FILE *file;
@@ -53,14 +55,14 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
         return;
     }
     // resutls get stored as an array of strings
-    int max_results = (TOTAL_INSERTS/n_skip) + 2;
-    char **results = malloc(max_results * sizeof(char*));
+    int max_results = (total_tree_size/n_skip) + 2;
+    char **results = calloc(max_results, sizeof(char*));
     char buffer[LINE_BUFFER_SIZE];
     
     skip_header(file);
-    assign_header("id,run_type,number_added,avg_time_per_insert\n", results);
+    assign_header("id,run_type,number_added,avg_time_per_insert,total_nodes,operation_count\n", results);
 
-    AVLIndex* tree = create_avl_tree();
+    BINIndex* tree = create_binary_tree();
     int result_index = 1;
     
     struct timespec batch_start, batch_end;
@@ -69,7 +71,7 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
     // I was getting to much noise with individual timmings
     // so i switched to batch timing. Although not perfect,
     // it should reduce noise between measurements
-    for(int i = 1; i <= TOTAL_INSERTS; i++){
+    for(int i = 1; i <= total_tree_size; i++){
         int num = get_next_number(file);
         if (num == -1) {
             printf("Last Line\n");
@@ -82,7 +84,7 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
             batch_count = 0;
         }
         // operation being timed
-        insert_avl(tree, num);
+        insert_binary(tree, num);
         batch_count++;
 
         // End timing at end of batch
@@ -93,8 +95,8 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
                                (batch_end.tv_nsec - batch_start.tv_nsec) / 1e9;
             double avg_time = total_time / batch_count;
             
-            snprintf(buffer, sizeof(buffer), "%i,%s,%i,%.9f\n", 
-                    i, benchmark_name, num, avg_time);
+            snprintf(buffer, sizeof(buffer), "%i,%s,%i,%.9f,%d,%lld\n", 
+                    i, benchmark_name, num, avg_time, tree->total_Nodes, tree->total_operations);
             results[result_index++] = strdup(buffer);
 
             printf("\tProcessed %d (avg: %.9f sec)\n", i, avg_time);
@@ -103,7 +105,7 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
 
     fclose(file);
     append_lines_to_file(results, file_save_name);
-    cleanup_benchmark(results, max_results, tree);
+    cleanup_bin_benchmark(results, max_results, tree);
     printf("✅ Completed %d insertions\n", TOTAL_INSERTS);
 }
 
@@ -123,7 +125,7 @@ static void __get_regular_operation_time(
                                     int total_tree_size,
                                     int increment_tree_size,
                                     int batch_size,
-                                    AVL_OPERATION operation_type
+                                    BIN_OPERATION operation_type
                                     ){
     printf("⌚ Gathering %s Time\n", benchmark_name);
 
@@ -136,13 +138,13 @@ static void __get_regular_operation_time(
 
     // results get stored as an array of strings
     int max_results = (total_tree_size/increment_tree_size) + 2;
-    char **results = malloc(max_results * sizeof(char*));
+    char **results = calloc(max_results, sizeof(char*));
     char buffer[LINE_BUFFER_SIZE];
     
     skip_header(file);
-    assign_header("id,run_type,tree_size,batch_size,total_elapsed_time\n", results);
+    assign_header("id,run_type,tree_size,batch_size,total_elapsed_time,ops_count\n", results);
 
-    AVLIndex* tree = create_avl_tree();
+    BINIndex* tree = create_binary_tree();
     int result_index = 1;
     int current_tree_size = 0;
     
@@ -157,7 +159,7 @@ static void __get_regular_operation_time(
                 printf("⚠️ Reached EOF at %d insertions\n", current_tree_size);
                 goto end_benchmark;
             }
-            insert_avl(tree, num);
+            insert_binary(tree, num);
             current_tree_size++;
         }
 
@@ -168,7 +170,7 @@ static void __get_regular_operation_time(
         // running batch_size operations
         for(int op = 0; op < batch_size; op++){
             int num = getRandomInRange(0, TOTAL_INSERTS - 1);
-            run_avl_function(tree, num, operation_type);
+            run_bin_function(tree, num, operation_type);
         }
         clock_gettime(CLOCK_MONOTONIC, &batch_end);
 
@@ -180,7 +182,7 @@ static void __get_regular_operation_time(
             for(int r=0; r<missing_nodes;r++){
                 // reinserting missing nodes
                 int num = getRandomInRange(20000000, 40000000);
-                insert_avl(tree, num);
+                insert_binary(tree, num);
                 current_tree_size++;
             }
         }
@@ -189,8 +191,8 @@ static void __get_regular_operation_time(
                            (batch_end.tv_nsec - batch_start.tv_nsec) / 1e9;
         
         // Store result
-        snprintf(buffer, sizeof(buffer), "%d,%s,%d,%d,%.10e\n", 
-                 result_index, benchmark_name, current_tree_size, batch_size, total_time);
+        snprintf(buffer, sizeof(buffer), "%d,%s,%d,%d,%.10e,%lld\n", 
+                 result_index, benchmark_name, tree->total_Nodes, batch_size, total_time, tree->total_operations);
         results[result_index++] = strdup(buffer);
         
         printf("\t%d operations on tree size %d: total=%.6f sec, avg=%.9f sec/op\n", 
@@ -200,7 +202,7 @@ static void __get_regular_operation_time(
 end_benchmark:
     fclose(file);
     append_lines_to_file(results, file_save_name);
-    cleanup_benchmark(results, max_results, tree);
+    cleanup_bin_benchmark(results, max_results, tree);
     printf("✅ Completed benchmarking - final tree size: %d\n", current_tree_size);
 }
 
@@ -210,21 +212,21 @@ end_benchmark:
 
 
 
-void run_avl_benchmarks() {
+void run_bin_benchmarks() {
 
     // Insertion Benchmarks
-    __get_insertion_time("./data/inorder_list.csv", "inorder_avl_insertion" ,"./data/avl_inorder_results.csv",100000);
-    __get_insertion_time("./data/random_list.csv", "random_avl_insertion" ,"./data/avl_random_results.csv", 100000);
+    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_bin_insertion" ,"./data/results/bin_inorder_results.csv", 100000, 1000);
+    __get_insertion_time("./data/samples/random_list.csv", "random_bin_insertion" ,"./data/results/bin_random_results.csv", 100000, 1000);
     
     //Search Benchmarks
-    __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_search", "./data/results/avl_random_search_results.csv",
-                                    10000000, 100000, 100000,SEARCH_OP);
-    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_search", "./data/results/avl_inorder_search_results.csv",
-                                    10000000, 100000, 100000,SEARCH_OP);
+    __get_regular_operation_time("./data/samples/random_list.csv", "random_bin_search", "./data/results/bin_random_search_results.csv",
+                                    100000, 1000, 1000,SEARCH_OP);
+    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_bin_search", "./data/results/bin_inorder_search_results.csv",
+                                    100000, 1000, 1000,SEARCH_OP);
 
     // Delete Benchmarks
-    __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_delete", "./data/results/avl_random_delete_results.csv",
+    __get_regular_operation_time("./data/samples/random_list.csv", "random_bin_delete", "./data/results/bin_random_delete_results.csv",
+                                    100000  , 1000, 1000,DELETE_OP);
+    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_bin_delete", "./data/results/bin_inorder_delete_results.csv",
                                     100000, 1000, 1000,DELETE_OP);
-    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_delete", "./data/results/avl_inorder_delete_results.csv",
-                                    10000000, 100000, 100000,DELETE_OP);
 }

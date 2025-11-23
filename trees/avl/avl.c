@@ -18,6 +18,10 @@ static AVLNode* get_min_node(AVLNode* node);
 static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted);
 static void __free_nodes(AVLNode* node);    
 
+// Gloabl Counter
+long long AVL_GLOBAL_OPS = 0;
+
+
 /**
  * creates index for a AVL tree
  * @return AVLIndex* pointer to created AVL tree index
@@ -38,6 +42,7 @@ AVLIndex* create_avl_tree(){
  * @param value value to be stored in node
  */
 static AVLNode* __create_node(int value){
+    AVL_GLOBAL_OPS++;
     AVLNode *new_node = (AVLNode*)malloc(sizeof(AVLNode));
     if(new_node==NULL){
         perror("Failed to allocate AVLIndex");
@@ -58,18 +63,21 @@ static AVLNode* __create_node(int value){
  */
 AVLIndex* insert_avl(AVLIndex* index, int value){
     AVLNode* root = index->root;
+    AVL_GLOBAL_OPS = 0;
+    index->total_operations = 0;
     
     // new tree
     if (root == NULL){
         AVLNode* new_node = __create_node(value);
         index->root = new_node;
         index->total_Nodes++;
+        index->total_operations = AVL_GLOBAL_OPS;
         return index;
     } else {
         int insert = 0;
         index->root = __insert_avlTree(root, value, &insert);
         index->total_Nodes += insert;
-
+        index->total_operations = AVL_GLOBAL_OPS;
     }
     return index;
 } 
@@ -81,6 +89,7 @@ AVLIndex* insert_avl(AVLIndex* index, int value){
  * @param value2 second integer
  */
 static int __get_max(int value1, int value2){
+    AVL_GLOBAL_OPS++;
     return (value1 > value2) ? value1 : value2; 
 }
 
@@ -88,6 +97,7 @@ static int __get_max(int value1, int value2){
  * Calculates the Balance factor
  */
 int get_avl_height(AVLNode* node){
+    AVL_GLOBAL_OPS++;
     if(node==NULL){
         return 0;
     } else{
@@ -100,6 +110,7 @@ int get_avl_height(AVLNode* node){
  * @param node current node to calculate balance for
  */
 int get_balance(AVLNode* node){
+    AVL_GLOBAL_OPS++;
     if(node==NULL){
         return 0;
     } else{
@@ -114,6 +125,7 @@ int get_balance(AVLNode* node){
  * @param cur current node to be rotated
 */
 static AVLNode* __left_rotate(AVLNode* cur){
+    AVL_GLOBAL_OPS++;
     AVLNode* cur_right = cur->right;
     AVLNode* cur_right_left = cur_right->left;
 
@@ -132,7 +144,7 @@ static AVLNode* __left_rotate(AVLNode* cur){
  * @param cur current node to be rotated
 */
 static AVLNode* __right_rotate(AVLNode* cur){
-
+  AVL_GLOBAL_OPS++;
   AVLNode* cur_left =  cur->left;
   AVLNode* cur_left_right  = cur_left->right;
 
@@ -150,38 +162,46 @@ static AVLNode* __right_rotate(AVLNode* cur){
  * @param cur current node to be rebalanced
 */
 static AVLNode* __rebalance_tree(AVLNode* cur){
+    AVL_GLOBAL_OPS++;
     cur->height = 1 + __get_max(get_avl_height(cur->left), get_avl_height(cur->right));
+    AVL_GLOBAL_OPS++;
 
     // curr balance factors
+    AVL_GLOBAL_OPS++;
     int cur_balance = get_balance(cur);
 
     // Left in Balance
     if(cur_balance > 1){
-
+        AVL_GLOBAL_OPS++;
         int balance_left = get_balance(cur->left);
 
         //left left
         if (balance_left >= 0){
+            AVL_GLOBAL_OPS++;
             return __right_rotate(cur);
         }
 
         //left right
         if (balance_left < 0){
+            AVL_GLOBAL_OPS++;
             cur->left = __left_rotate(cur->left);
             return __right_rotate(cur);
         }
     }
     // RIGHT in balance
     else if (cur_balance < -1 ){
+        AVL_GLOBAL_OPS++;
         int balance_right = get_balance(cur->right);
         
         //right right
         if (balance_right <= 0){
+            AVL_GLOBAL_OPS++;
             return __left_rotate(cur);
         }
 
         // right left
         if (balance_right > 0){
+            AVL_GLOBAL_OPS++;
             cur->right = __right_rotate(cur->right);
             return __left_rotate(cur);
         }
@@ -196,6 +216,7 @@ static AVLNode* __rebalance_tree(AVLNode* cur){
 * @param value value to be inserted
 */
 static AVLNode* __insert_avlTree(AVLNode* cur, int value, int* insert){
+    AVL_GLOBAL_OPS++;
     if (cur == NULL){
         *insert = 1;
         return __create_node(value);
@@ -203,8 +224,10 @@ static AVLNode* __insert_avlTree(AVLNode* cur, int value, int* insert){
 
     // insertion
     if (value <cur->value){
+        AVL_GLOBAL_OPS++;
         cur->left = __insert_avlTree(cur->left, value, insert);
     } else if (value > cur->value){
+        AVL_GLOBAL_OPS++;
         cur->right = __insert_avlTree(cur->right, value, insert);
     } else {
         // we skip duplicate values
@@ -221,8 +244,11 @@ static AVLNode* __insert_avlTree(AVLNode* cur, int value, int* insert){
 }
 
 static AVLNode* get_min_node(AVLNode* node){
-    while (node->left != NULL)
+    AVL_GLOBAL_OPS++;
+    while (node->left != NULL){
+        AVL_GLOBAL_OPS++;
         node = node->left;
+    }
     return node;
 }
 
@@ -233,15 +259,18 @@ static AVLNode* get_min_node(AVLNode* node){
  * @param deleted pointer for tracking if node was deleted
  */
 static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
+    AVL_GLOBAL_OPS++;
     if(cur == NULL){
         *deleted = 0;
         return cur;
     }
+    
     if(value < cur->value){
+        AVL_GLOBAL_OPS++;
         cur->left = __delete_avl_value(cur->left, value, deleted);
     }
     else if(value > cur->value){
-        
+        AVL_GLOBAL_OPS++;
         cur->right = __delete_avl_value(cur->right, value, deleted);
     }
     // deleting node
@@ -249,31 +278,36 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
         AVLNode* temp;
         
         if (cur->left == NULL){
+            AVL_GLOBAL_OPS++;
             temp = cur->right;
             free(cur);
             *deleted = 1;
             return temp;
         }
         else if(cur->right == NULL){
+            AVL_GLOBAL_OPS++;
             temp = cur->left;
             free(cur);
             *deleted = 1;
             return temp;
         }
         else{
+            AVL_GLOBAL_OPS++;
             AVLNode* min_node = get_min_node(cur->right);
             cur->value = min_node->value;
             cur->right = __delete_avl_value(cur->right, min_node->value , deleted);
             *deleted = 1;
-
         }
     }
+    AVL_GLOBAL_OPS++;
+    cur->height = 1 + __get_max(get_avl_height(cur->left), get_avl_height(cur->right));
     cur = __rebalance_tree(cur);
     return cur;
 }
 
 AVLIndex* delete_avl_value(AVLIndex *index, int value){
     AVLNode* root = index->root;
+    AVL_GLOBAL_OPS = 0;
     
     // new tree
     if (root == NULL){
@@ -282,6 +316,7 @@ AVLIndex* delete_avl_value(AVLIndex *index, int value){
         int deleted = 0;
         index->root = __delete_avl_value(root, value, &deleted);
         index->total_Nodes -= deleted;
+        index->total_operations = AVL_GLOBAL_OPS;
     }
     return index;
 
@@ -298,7 +333,9 @@ AVLIndex* delete_avl_value(AVLIndex *index, int value){
  */
 AVLNode* search_avl(AVLIndex* index, int value){
     AVLNode* cur = index->root;
+    index->total_operations = 0;
     while(cur != NULL){
+        index->total_operations++;
         if (cur->value == value){
             return cur;
         } else if (value < cur->value){

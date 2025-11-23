@@ -7,6 +7,10 @@
 #define TOTAL_DELETES 10000
 #include <stdio.h>
 
+
+typedef enum { INSERT_OP, SEARCH_OP, DELETE_OP } BENCH_OPERATION;
+
+
 int get_next_number(FILE* file);
 void append_lines_to_file(char** lines, char* file_name);
 void free_results(char** results, int count);

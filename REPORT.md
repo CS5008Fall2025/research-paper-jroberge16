@@ -22,3 +22,8 @@ A binary tree is a data structure which, on average, provides O(Log(n)) for inse
 
 
 # Algorithm Background
+```mermaid
+graph TD
+    A[3] --> B(2)
+    B --> C(1)
+```

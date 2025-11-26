@@ -15,6 +15,7 @@ struct AVLIndex {
     AVLNode* root;
     int total_Nodes;
     long long int total_operations;
+    long int rotations;
 };
 
 AVLIndex* create_avl_tree();

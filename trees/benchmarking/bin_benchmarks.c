@@ -215,18 +215,18 @@ end_benchmark:
 void run_bin_benchmarks() {
 
     // Insertion Benchmarks
-    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_bin_insertion" ,"./data/results/bin_inorder_results.csv", 100000, 1000);
-    __get_insertion_time("./data/samples/random_list.csv", "random_bin_insertion" ,"./data/results/bin_random_results.csv", 100000, 1000);
+    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_bin_insertion" ,"./data/results/bin_inorder_results.csv", 200000, 5000);
+    __get_insertion_time("./data/samples/random_list.csv", "random_bin_insertion" ,"./data/results/bin_random_results.csv", 25000000, 5000);
     
     //Search Benchmarks
     __get_regular_operation_time("./data/samples/random_list.csv", "random_bin_search", "./data/results/bin_random_search_results.csv",
-                                    100000, 1000, 1000,SEARCH_OP);
+                                    25000000, 250000, 5000,SEARCH_OP);
     __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_bin_search", "./data/results/bin_inorder_search_results.csv",
-                                    100000, 1000, 1000,SEARCH_OP);
+                                    200000, 1000, 5000,SEARCH_OP);
 
     // Delete Benchmarks
     __get_regular_operation_time("./data/samples/random_list.csv", "random_bin_delete", "./data/results/bin_random_delete_results.csv",
-                                    100000  , 1000, 1000,DELETE_OP);
+                                    25000000  , 250000, 5000,DELETE_OP);
     __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_bin_delete", "./data/results/bin_inorder_delete_results.csv",
-                                    100000, 1000, 1000,DELETE_OP);
+                                    200000, 1000, 5000,DELETE_OP);
 }

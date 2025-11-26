@@ -56,7 +56,7 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
     char buffer[LINE_BUFFER_SIZE];
     
     skip_header(file);
-    assign_header("id,run_type,number_added,avg_time_per_insert,total_nodes,operation_count\n", results);
+    assign_header("id,run_type,number_added,avg_time_per_insert,total_nodes,operation_count,height, rotations\n", results);
 
     AVLIndex* tree = create_avl_tree();
     int result_index = 1;
@@ -91,8 +91,8 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
                                (batch_end.tv_nsec - batch_start.tv_nsec) / 1e9;
             double avg_time = total_time / batch_count;
             
-            snprintf(buffer, sizeof(buffer), "%i,%s,%i,%.9f,%d,%lld\n", 
-                    i, benchmark_name, num, avg_time, tree->total_Nodes, tree->total_operations);
+            snprintf(buffer, sizeof(buffer), "%i,%s,%i,%.9f,%d,%lld,%d,%ld\n", 
+                    i, benchmark_name, num, avg_time, tree->total_Nodes, tree->total_operations, tree->root->height, tree->rotations);
             results[result_index++] = strdup(buffer);
 
             printf("\tProcessed %d (avg: %.9f sec)\n", i, avg_time);
@@ -138,7 +138,7 @@ static void __get_regular_operation_time(
     char buffer[LINE_BUFFER_SIZE];
     
     skip_header(file);
-    assign_header("id,run_type,tree_size,batch_size,total_elapsed_time,ops_count\n", results);
+    assign_header("id,run_type,tree_size,batch_size,total_elapsed_time,ops_count,height,rotations\n", results);
 
     AVLIndex* tree = create_avl_tree();
     int result_index = 1;
@@ -187,8 +187,8 @@ static void __get_regular_operation_time(
                            (batch_end.tv_nsec - batch_start.tv_nsec) / 1e9;
         
         // Store result
-        snprintf(buffer, sizeof(buffer), "%d,%s,%d,%d,%.10e,%lld\n", 
-                 result_index, benchmark_name, tree->total_Nodes, batch_size, total_time, tree->total_operations);
+        snprintf(buffer, sizeof(buffer), "%d,%s,%d,%d,%.10e,%lld,%d,%ld\n", 
+                 result_index, benchmark_name, tree->total_Nodes, batch_size, total_time, tree->total_operations, tree->root->height, tree->rotations);
         results[result_index++] = strdup(buffer);
         
         printf("\t%d operations on tree size %d: total=%.6f sec, avg=%.9f sec/op\n", 
@@ -211,18 +211,18 @@ end_benchmark:
 void run_avl_benchmarks() {
 
     // Insertion Benchmarks
-    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_avl_insertion" ,"./data/results/avl_inorder_results.csv", 25000000, 100000);
-    __get_insertion_time("./data/samples/random_list.csv", "random_avl_insertion" ,"./data/results/avl_random_results.csv", 25000000, 100000);
+    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_avl_insertion" ,"./data/results/avl_inorder_results.csv", 25000000, 50000);
+    __get_insertion_time("./data/samples/random_list.csv", "random_avl_insertion" ,"./data/results/avl_random_results.csv", 25000000, 50000);
     
     //Search Benchmarks
     __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_search", "./data/results/avl_random_search_results.csv",
-                                    25000000, 500000, 100000,SEARCH_OP);
+                                    25000000, 250000, 5000,SEARCH_OP);
     __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_search", "./data/results/avl_inorder_search_results.csv",
-                                    25000000, 500000, 100000,SEARCH_OP);
+                                    25000000, 250000, 5000,SEARCH_OP);
 
     // Delete Benchmarks
     __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_delete", "./data/results/avl_random_delete_results.csv",
-                                    25000000, 500000, 100000,DELETE_OP);
+                                    25000000, 250000, 5000,DELETE_OP);
     __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_delete", "./data/results/avl_inorder_delete_results.csv",
-                                    25000000, 500000, 100000,DELETE_OP);
+                                    25000000, 250000, 5000,DELETE_OP);
 }

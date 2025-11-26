@@ -1,0 +1,50 @@
+// Experimental Design
+digraph {
+	rankdir=LR
+	node [fontname=Arial fontsize=9 height=0.3 margin=0.1 shape=box style="rounded,filled" width=0.6]
+	edge [arrowsize=0.6 color=gray50 penwidth=1.2]
+	nodesep=0.15 ranksep=1.2
+	size="24,6!"
+	start [label=START fillcolor=gray85 fontcolor=black fontsize=10]
+	avl [label=AVL fillcolor="#b8c5f2" fontcolor="#1a237e"]
+	bst [label=BST fillcolor="#b8c5f2" fontcolor="#1a237e"]
+	bst_more [label="..." fontsize=12 shape=plaintext]
+	start -> avl
+	start -> bst
+	bst -> bst_more
+	dataset_0 [label=Random fillcolor="#c8e6c9" fontcolor="#1b5e20"]
+	avl -> dataset_0
+	dataset_1 [label=Inorder fillcolor="#c8e6c9" fontcolor="#1b5e20"]
+	avl -> dataset_1
+	op_0 [label=Insert fillcolor="#ffe0b2" fontcolor="#e65100"]
+	dataset_0 -> op_0
+	op_1 [label=Delete fillcolor="#ffe0b2" fontcolor="#e65100"]
+	dataset_0 -> op_1
+	op_2 [label=Search fillcolor="#ffe0b2" fontcolor="#e65100"]
+	dataset_0 -> op_2
+	dataset_more [label="..." fontsize=12 shape=plaintext]
+	dataset_1 -> dataset_more
+	metric_0 [label=Time fillcolor="#ffcdd2" fontcolor="#b71c1c" fontsize=8]
+	op_0 -> metric_0
+	metric_1 [label=OpCount fillcolor="#ffcdd2" fontcolor="#b71c1c" fontsize=8]
+	op_0 -> metric_1
+	metric_2 [label=Height fillcolor="#ffcdd2" fontcolor="#b71c1c" fontsize=8]
+	op_0 -> metric_2
+	metric_3 [label=Custom fillcolor="#ffcdd2" fontcolor="#b71c1c" fontsize=8]
+	op_0 -> metric_3
+	op_more1 [label="..." fontsize=12 shape=plaintext]
+	op_more2 [label="..." fontsize=12 shape=plaintext]
+	op_1 -> op_more1
+	op_2 -> op_more2
+	subgraph cluster_legend {
+		fontname="Arial Bold" fontsize=10 label=Legend labelloc=t
+		color=gray70 penwidth=1.5 style=rounded
+		l1 [label="Tree Type" fillcolor="#b8c5f2" fontcolor="#1a237e" fontsize=9]
+		l2 [label=Dataset fillcolor="#c8e6c9" fontcolor="#1b5e20" fontsize=9]
+		l3 [label=Operation fillcolor="#ffe0b2" fontcolor="#e65100" fontsize=9]
+		l4 [label=Metric fillcolor="#ffcdd2" fontcolor="#b71c1c" fontsize=9]
+		l1 -> l2 [style=invis]
+		l2 -> l3 [style=invis]
+		l3 -> l4 [style=invis]
+	}
+}

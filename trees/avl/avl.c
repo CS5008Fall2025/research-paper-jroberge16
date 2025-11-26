@@ -20,6 +20,7 @@ static void __free_nodes(AVLNode* node);
 
 // Gloabl Counter
 long long AVL_GLOBAL_OPS = 0;
+long int AVL_GLOBAL_ROTATIONS = 0;
 
 
 /**
@@ -34,6 +35,8 @@ AVLIndex* create_avl_tree(){
     }
     index->root = NULL;
     index->total_operations = 0;
+    index->total_Nodes = 0;
+    index->rotations = 0;
     return index;
 }
 
@@ -64,7 +67,9 @@ static AVLNode* __create_node(int value){
 AVLIndex* insert_avl(AVLIndex* index, int value){
     AVLNode* root = index->root;
     AVL_GLOBAL_OPS = 0;
+    AVL_GLOBAL_ROTATIONS = 0;
     index->total_operations = 0;
+    index->rotations = 0;
     
     // new tree
     if (root == NULL){
@@ -72,12 +77,14 @@ AVLIndex* insert_avl(AVLIndex* index, int value){
         index->root = new_node;
         index->total_Nodes++;
         index->total_operations = AVL_GLOBAL_OPS;
+        index->rotations = AVL_GLOBAL_ROTATIONS;
         return index;
     } else {
         int insert = 0;
         index->root = __insert_avlTree(root, value, &insert);
         index->total_Nodes += insert;
         index->total_operations = AVL_GLOBAL_OPS;
+        index->rotations = AVL_GLOBAL_ROTATIONS;
     }
     return index;
 } 
@@ -126,6 +133,7 @@ int get_balance(AVLNode* node){
 */
 static AVLNode* __left_rotate(AVLNode* cur){
     AVL_GLOBAL_OPS++;
+    AVL_GLOBAL_ROTATIONS++;
     AVLNode* cur_right = cur->right;
     AVLNode* cur_right_left = cur_right->left;
 
@@ -145,6 +153,7 @@ static AVLNode* __left_rotate(AVLNode* cur){
 */
 static AVLNode* __right_rotate(AVLNode* cur){
   AVL_GLOBAL_OPS++;
+  AVL_GLOBAL_ROTATIONS++;
   AVLNode* cur_left =  cur->left;
   AVLNode* cur_left_right  = cur_left->right;
 
@@ -308,6 +317,9 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
 AVLIndex* delete_avl_value(AVLIndex *index, int value){
     AVLNode* root = index->root;
     AVL_GLOBAL_OPS = 0;
+    AVL_GLOBAL_ROTATIONS = 0;
+    index->total_operations = 0;
+    index->rotations = 0;
     
     // new tree
     if (root == NULL){
@@ -317,6 +329,7 @@ AVLIndex* delete_avl_value(AVLIndex *index, int value){
         index->root = __delete_avl_value(root, value, &deleted);
         index->total_Nodes -= deleted;
         index->total_operations = AVL_GLOBAL_OPS;
+        index->rotations = AVL_GLOBAL_ROTATIONS;
     }
     return index;
 

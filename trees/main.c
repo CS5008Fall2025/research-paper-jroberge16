@@ -12,7 +12,7 @@
 
 int main() {
     printf("Running Benchmarks for Trees\n");
-    // run_avl_benchmarks();
+    run_avl_benchmarks();
     run_bin_benchmarks();
     return 0;
 }

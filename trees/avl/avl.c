@@ -252,6 +252,12 @@ static AVLNode* __insert_avlTree(AVLNode* cur, int value, int* insert){
     return cur;
 }
 
+
+
+
+
+
+
 static AVLNode* get_min_node(AVLNode* node){
     AVL_GLOBAL_OPS++;
     while (node->left != NULL){
@@ -273,7 +279,6 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
         *deleted = 0;
         return cur;
     }
-    
     if(value < cur->value){
         AVL_GLOBAL_OPS++;
         cur->left = __delete_avl_value(cur->left, value, deleted);
@@ -319,7 +324,6 @@ AVLIndex* delete_avl_value(AVLIndex *index, int value){
     AVL_GLOBAL_OPS = 0;
     AVL_GLOBAL_ROTATIONS = 0;
     index->total_operations = 0;
-    index->rotations = 0;
     
     // new tree
     if (root == NULL){

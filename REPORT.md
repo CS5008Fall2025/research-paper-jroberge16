@@ -12,18 +12,15 @@ h1 {
 * Topic: AVL Tree
 <hr>
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+A traditional binary search tree (BST) is a data structure that, on average, provides $\log(n)$ for insertions, deletions, and searching, but our worst-case runtime is significantly worse than this. A BST has a significant flaw in that its performance is dependent on insertion order. When a binary tree is unbalanced, its performance is affected and can result in a worst-case scenario of O(n) for numerous operations.
 
-A binary tree is a data structure which, on average, provides O(Log(n)) for insertions, deletion and searching, but this is not the worst-case scenario. Binary trees have a significant flaw in that they are entirely dependent on the insertion order of the data. When a binary tree is unbalanced, its performance is affected and can result in a worst-case scenario of O(n) for various operations. This research paper investigates the data structure of an AVL tree an AVL is a self-balancing tree that corrects for a binary tree’s worst-case scenario. To understand the effectiveness of this algorithm, our research will be discussed in four sections:
+&nbsp;&nbsp;&nbsp;&nbsp;
+This research reviews and analyzes the AVL data structure. An AVL is a self-balancing tree that ensures a BST has a height of $O(\log(n))$. To understand the effectiveness of this algorithm, our research will be discussed in four sections:
 
-1.	AVL Algorithm: A general discussion of the core concepts behind the algorithm and its practical implementations.
-2.	Implementation: A discussion of the reports code base and the design decisions behind the data structures implementation.
-3.	Theoretical Analysis: Analyzing Big(O) for insertion, deletion, and searching, and proving correctness.
-4.	Empirical Analysis: analyzing the runtime through the use of an experiment.
+1. __AVL Data Structure__: A general discussion of the core concepts behind the algorithm and its practical implementations.
+2. __Theoretical Analysis__: Showing $h = O(\log(n))$ and then analyzing Big(O) for insertion, deletion, and searching.
+3. __Implementation/Experimentation__: A discussion of the report's code base and experiment design.
+4. __Empirical Analysis__: analyzing the runtimes using our experimental data.
 
-
-# Algorithm Background
-```mermaid
-graph TD
-    A[3] --> B(2)
-    B --> C(1)
-```
+##

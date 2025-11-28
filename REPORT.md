@@ -52,10 +52,24 @@ The above figure shows the process for a right rotation. Left and right rotation
 
 #### Double Rotations:
 
+<div align="center">
+<img src="data/images/LeftRightRotate.png" alt="CorePrinciples.png">
+</div>
+
+
+When we have an imbalance that has a zigzag pattern, we perform either a left-right (LR) or a right-left (RL) rotation. The diagram above outlines an LR rotation, and in the appendix, you’ll find similar logic for an <a href="#right-left-rotation">RL rotation </a>. An LR rotation is triggered by two conditions: condition one, the parent node has a $B_F>1$; and condition two, the parent node’s left child has a $B_F<0$. To fix this imbalance, we perform two steps:
+•	Step One: Flatten the zigzag by performing a left rotation. 
+•	Step Two: Correct the imbalances by performing a right rotation.
 
 ## Appendix
 
 ### Left Rotation:
 <div align="center">
 <img id="left-rotation" src="data/images/LeftRotate.png" alt="CorePrinciples.png">
+</div>
+
+### Right-Left Rotation:
+
+<div align="center">
+<img id="right-left-rotation" src="data/images/RightLeftRotate.png" alt="CorePrinciples.png">
 </div>

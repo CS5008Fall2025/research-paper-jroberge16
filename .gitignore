@@ -1,4 +1,5 @@
 # To Big for git
+./data/results/*
 ./data/samples/*
 
 # .venv folder
@@ -7,3 +8,5 @@
 # .vscode folder
 .vscode/
 
+# ignore binnaries
+*.exe

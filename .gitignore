@@ -10,3 +10,14 @@
 
 # ignore binnaries
 *.exe
+
+
+# Add these to .gitignore
+*.csv
+*.out
+*.o
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+data/results/
+data/plots/

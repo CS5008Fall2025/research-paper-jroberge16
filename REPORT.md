@@ -176,9 +176,19 @@ With the strong induction proof in hand, it was now time to solve for the upper 
 
 $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h =O(\log (n))$
 
+### Big-O for Insertion, Deletion and Search
+<div align="center">
 
+| Function | Time Complexity | Space Complexity (iterative) | Space Complexity (recursive) |
+|----------|-----------------|------------------------------|------------------------------|
+| Insertion | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
+| Search | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
+| Delete | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
 
+</div>
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+The table above outlines the runtimes for insertion, deletion, and search. These runtimes are made possible because an AVL tree’s height is $O(log(n))$ (see proof).  To explain and validate the above runtimes, we will walk through each of the functions’ pseudocode and then explain there time and space complexity.
 
 
 ## Appendix

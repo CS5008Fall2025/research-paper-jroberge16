@@ -226,8 +226,32 @@ Our search function uses an iterative approach. As shown in the above code, this
 
 
 #### Deletion:
+<div align="center">
+<img src="data/images/deleteFunction.png" alt="CorePrinciples.png">
+</div>
 
 
+
+$$
+
+T(n) = T_{Search}(\log(n)) + T_{FindReplacement}(\log(n)) + T_{MetricsRotations}(\log(n)) = 3\cdot \log(n) = O(log(n))
+
+$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+The above code outlines our process for deleting a value from an AVL tree. To accomplish this goal, our code iterates through three distinct phases. In the first phase, we move down to the node we want to delete, which under the worst-case, would be $O(log(n)) = O(h)$. Once we find the value to delete, we move into phase two. The goal of phase two is to find a replacement value for our deleted node. To find a replacement value, we will find the minimum value in the deleted node's right subtree. After finding this node, we move it to the deleted node’s location. This operation, under a worst-case scenario, contributes $O \log(n)$ to our runtime. In our third and final phase, we move back up our tree, while recalculating height and performing any necessary rotations. Unlike insertion, which at most can cause two rotations, deleting can have a cascading effect, which will cause $log(n)$ rotations. Taken together, we arrive at a worst-case scenario of  $O(log(n))$, which is outlined in the equation above. Since we must always find a replacement node in this process, which is $O(log(n))$ deep, our best and average case will also be $\log(n)$.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our definition of deletion uses recursion, which means each recursive call contributes to our overall memory footprint. Each individual recursive call uses $O(1)$ space, and thus we need only to account for the total stack depth, which is:
+
+$$
+
+S(n) = StackDepth = O(log(n))
+
+$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+It should be noted that this is a recursive definition for deletion, but there are iterative solutions. If we were to use an iterative solution, we would have $S(n) = O(1)$. To achieve this space complexity, we would need to implement parent pointers for each node, so that we could traverse backwards [6].
 
 
 

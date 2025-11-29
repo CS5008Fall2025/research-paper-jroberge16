@@ -188,7 +188,48 @@ $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h =O(\log (n))$
 </div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-The table above outlines the runtimes for insertion, deletion, and search. These runtimes are made possible because an AVL tree’s height is $O(log(n))$ (see proof).  To explain and validate the above runtimes, we will walk through each of the functions’ pseudocode and then explain there time and space complexity.
+The table above outlines the runtimes for insertion, deletion, and search. These runtimes are made possible because an AVL tree’s height is $O(log(n))$ (see proof); This means, the cost of traversing to a leaf node will also be $O(\log(n))$. To explain and validate the above runtimes, we will walk through each of the functions’ pseudocode and then explain there time and space complexity.
+
+#### Insertion:
+<div align="center">
+<img src="data/images/insertFunction.png" alt="CorePrinciples.png">
+</div>
+
+$$
+T(n) = T_{Search}(\log(n)) + T_{RebalanceHeight}(\log(n)) = 2\cdot \log(n) = O(log(n))
+$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+The above code outlines a recursive definition of our AVL insert function. We can break down this pseudocode into two phases. In the first phase, we search for a location to insert our new value. The search phase ends once we hit a leaf node, and we know this traversal will have $O(\log(n))$ due to our height. Once we hit our leaf node, we will enter phase two: `RebalanceMetrics`. In this phase, we move back up our tree, while updating our height and rebalancing the tree if needed. In this phase, we are guaranteed to make no more than one rotation [CITE]. Note that the best-case, worst-case, and average-case for inserting into an AVL tree are all $O(log(n))$  since we must always traverse to the leaf node and back up again.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+In our code, we used a recursive definition to define AVL’s insert function. Using a recursive definition means that each stack call will contribute to our total memory footprint. We are recursively traversing to our root node, which means $S(n) = O(\log(n))$. This recursive definition for an AVL tree is purely academic because we can define this function iteratively, which would have $S(n) = O(1)$ [Cite].
+
+
+#### Search:
+<div align="center">
+<img src="data/images/SearchFunction.png" alt="CorePrinciples.png">
+</div>
+
+$$
+
+T(n) = T_{search}(\log(n))
+
+$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+The above code outlines our definition for searching an AVL tree. We start off with a `while` loop, which iterates until we find our search value. Given the worst-case scenario, we must traverse to the leaf node, which would be $O(\log(n))$. Looking beyond a worst-case scenario, our best-case would be $O(1)$, which assumes we find our value in the root node. Our average-case would traverse halfway down the tree, which would still be a factor of $log(n)$ .
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our search function uses an iterative approach. As shown in the above code, this approach’s space complexity remains constant through each loop, thus resulting in $S(n) = O(1)$. This function could be accomplished using recursion, which would result in a space complexity of $S(n) = O(log(n))$.
+
+
+
+#### Deletion:
+
+
+
+
 
 
 ## Appendix

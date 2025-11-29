@@ -143,7 +143,23 @@ __Conclusion:__
 Since $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h = \mathcal{O}(\log n)$.
 
 
+#### Proof Discussion:
+&nbsp;&nbsp;&nbsp;&nbsp;
+The proof above shows that the height of an AVL tree is bounded by $O(\log(n))$. We were able to come to this conclusion by combining the proofs  of Goodrich, Moshiri, and Mount (cite, cite, cite). Upon studying their proofs, it was revealed that solving for height ($h$) was more difficult than solving for the minimum number of nodes under a specific height ($N_h$). If we can show that $N_h$ grows exponentially as $h$ increases, we can reverse this relationship and thus show $h = O(\log(n))$.
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+This idea of defining the lower bound $N_h$ is foundational to our proof. We rely on $N_h$ because this provides the least amount of restraint on the growth of $h$.  Meaning, if $N_h$ still grows exponentially, then anything above this is still greater than or equal to exponential growth. Given the relationship between the growth of $N_h$ and the growth of $h$, we were able to solve for the upper bound of $h$ in a three-step process:
+
+
+__Step One: Define the Recursive Relationship__
+
+$$
+
+  N_h = N_{h-1} + N_{h-2} + 1
+
+$$
+
+The above equation defines $N_h$ recursively by summing the nodes of the left and right trees plus the parent node. As previously discussed, an AVL tree’s height is bounded by the balancing factor, which states that $|B_f| \le 1$. Given this constraint, the left and right trees of $N_h$ can at most have a one-level difference. This information allows us to define $N_h$ recursively.
 
 ## Appendix
 

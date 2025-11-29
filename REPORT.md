@@ -268,3 +268,73 @@ It should be noted that this is a recursive definition for deletion, but there a
 <div align="center">
 <img id="right-left-rotation" src="data/images/RightLeftRotate.png" alt="CorePrinciples.png">
 </div>
+
+
+## Implementation/Experimental Design
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+This section’s purpose is to outline our experimental design and how our C repository was able to get us there. Originally, for this project, we planned to compare different types of binary search trees across various metrics. A week into the project, we quickly realized that our initial plan might have been overzealous, and thus we scaled back to an AVL tree and traditional BST. With this in mind, you will notice that our code follows a reusable template that can be adapted for future projects and experiments.
+
+### Experimental Design
+
+<div align="center">
+<img id="right-left-rotation" src="data/images/experimental_design_tree.png" alt="CorePrinciples.png">
+</div>
+
+The figure above shows our entire experimental design for this report. As shown above, we were able to perform a significant number of trials across various blocking criteria. This design allowed us to have a comprehensive empirical analysis, and furthermore, gave us room to expand our analysis in the future. Below, we will discuss each type  of experimental block.
+
+__Tree Type:__
+
+For this project, our plan was to compare several types of BSTs, but as mentioned, this was ambitious. Instead of comparing several different BSTs, we ended up comparing an AVL to a traditional binary search tree. We decided to include a traditional BST since it would complement and highlight the benefits of an AVL tree. The traditional BST results can be found in the appendix.
+
+__Datasets:__
+
+For this project, we ran each tree across two datasets. One dataset was completely randomized with numbers between 0-100 million. The other dataset contained the same data points as our randomized dataset, but in sorted order. We chose these two types of datasets because they would highlight the benefits of a self-balancing tree when compared to a traditional binary search tree.
+
+__Function Call:__
+
+We covered three foundational functions for a BST:
+
+* _Insert_: This operation adds a node to the BST.
+* _Search_: This operation searches our BST for a given value
+* _Delete_: This operation deletes a value from our BST.
+
+__Metrics:__
+
+We tracked three types of metrics for our experiment:
+
+* _Time_: The hardest variable to measure was time. We noticed during our initial experimentation that random noise ended up being the dominating factor for our time variable. To diminish the effects of noise, we ran each experiment in a batch of 1,000, and then took the average result. Given that each run was independent and our residuals were randomly distributed, this should diminish the effects of noise. We did not take the average result for insertion since there will be autocorrelation between every $n$th value inserted, meaning that the $n$th value inserted into our tree will be dependent on $n-1$, $n-2$, and so on. We therefore took the sum of inserting 1,000 data points at a time, which would preserve this dependency and diminish noise.
+* _Operation Count_: for each tree, we tracked the total number of operations performed during each function call. Counting operations is tricky and can be considered subjective. Therefore, this metric is great for comparing varying levels of $n$ across the same BST, and shouldn’t be used to compare different types of $BST$’s.
+* _Custom_: This metric was a placeholder for a metric specific to the BST in question. For our experiment, we used this placeholder metric to count the number of rotations an AVL tree made during a function call.
+* _Height_: This metric tracked the height of the root node.
+
+
+### Code Structure
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+To accommodate our experimental design, we needed a robust code base that was able to accommodate all our metrics. This was no easy feat and took careful planning and plenty of rework. To understand our code, we will discuss our two main modules: trees and benchmarking.
+
+__Trees:__
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our tree module housed the core components for our traditional BST and our AVL tree. Both of our tree implementations were based on Python code found on the site GeeksforGeeks, which we then converted to C code (CITE)(CITE)(CITE). Using GeeksforGeeks’ Python code provided a starting point and a valuable learning experience. While converting Python to C, we took this opportunity to create a standard framework between our different types of BSTs.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Each BST contained two public structs, `Node` and `Index`, and four public functions, create_index, search, insert, and delete. Having this common framework allowed us to easily reuse our benchmarking code across our different tree implementations.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Admittedly, our tree module needs refactoring. Although our AVL and BST share a common framework, due to time, we were unable to create generics for them. Having generics would make our code DRY and would make our implementation more modular.
+
+
+__Benchmarking:__
+<div align="center">
+<img id="right-left-rotation" src="data/images/ComandLine.png" alt="ComandLine.png">
+</div>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our benchmarking library housed the logic for tracking our experiments. Each tree was given its own benchmarking script, which was then called by the main script. Each benchmarking script is composed of two private functions:
+* `__get_regular_operation_time`: running experiments for searching and deleting data.
+* `__get_insertion_time`:  tracks the runtime for inserting values.
+
+To run an experiment, the user needs to call `make main` and then call `./main.out`. If the user desires to control the experimental run, they can pass in additional keyword arguments (see figure above).

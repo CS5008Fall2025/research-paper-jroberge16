@@ -77,11 +77,70 @@ In this section, we will perform a theoretical runtime analysis for an AVL tree.
 ### Proving AVL’s Height
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-In this section, we aim to prove, using strong induction, that the height ($h$) of an AVL tree is $O(log(n))$. We will break this section down into two subsections. The first section will present our proof, which relies on the previous work by Moshiri and Mount (cite, cite). In the subsequent section, we will have a detailed discussion of our proof.
+In this section, we aim to prove, using strong induction, that the height ($h$) of an AVL tree is $O(log(n))$. We will break this section down into two subsections. The first section will present our proof, which relies on the previous work by Goodrich, Moshiri and Mount (cite, cite, cite). In the subsequent section, we will have a detailed discussion of our proof.
 
 
+#### Proof:
+Let $N_h$ be the minimum number of nodes in an AVL tree of height $h$. We claim that
+$$
+\forall\, h \ge 0,\quad h \le O(\log(n)).
+$$
 
+To prove this claim, we first define the recursive relationship, then derive the upper bound of $N_h$, and finally finish by showing the's upper bound of $h$. When taken together, these steps will show that $ h_n \le \mathcal{O}(\log(n))$
 
+__Recursive Relationship__
+
+ Let $N_L$ and $N_R$ be the minimum number of nodes for $N_h$'s left and right subtree. $N_h$ can be defined as a sum of $N_h = N_{L} + N_{R} +1$ (+1 is for the connecting edge). Since we are dealing with the worst-case scenario and  we are constrained by our AVL's balance factor ($|B_F| \leq 1$), we derive the following relationship:
+$$
+ N_L = N_{h-1} \text{, }
+ N_R = N_{h-2}
+$$
+ thus,
+
+ $$
+  N_h = N_{h-1} + N_{h-2} + 1
+ $$
+
+__Proof by Strong Induction (Proving $N_h$'s Lower Bound):__
+
+_Base Cases_
+- $N_1 = 1$, One root node
+- $N_2 = 2 \ge 2^{\frac{2}{2}} $: One root node and child
+- $N_3 = N_1 + N_2 + 2 = 2+1+1=4 \ge 2^{\frac{2}{2}} $: using the defined recursive relationship
+
+_Inductive Hypothesis:_ Assume $k \ge 3$ and $\forall h$ s.t. $2 \ge h \le k$ that $N_h \ge 2^{\frac{h}{2}}$\\
+
+_Inductive Step:_
+$$
+\begin{align*}
+N_{k+1} &= N_k + N_{k-1} + 1\\
+        &> N_{k-1} + N_{k-1} + 1
+        \quad\text{($N_k$ to $N_{k+1}$ and $1$ to $0$... lower bound)}\\
+        &> 2 \cdot N_{k-1}\\
+        &> 2 \cdot 2^{(k-1)/2}
+        \quad\text{(Inductive Hypothesis)}\\
+        &> 2^{1 + (k-1)/2}\\
+        &> 2^{(k+1)/2}
+\end{align*}
+$$
+thus: $N_{k+1} \ge 2^{\frac{k+1}{2}}$
+
+_conclusion_: $N_h \ge 2^{\frac{h}{2}}$ $\forall h\ge 2$
+
+ __h's Upper Bound:__
+
+Taking the relationship derived above, we can derive $h$'s upper bound
+$$
+\begin{align*}
+    N_h &> 2^{h/2}\\
+    \log_2(N_h) &> \frac{h}{2}\\
+    h &< 2\log_2(N_h)
+\end{align*}
+$$
+
+__Conclusion:__
+
+Since $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h = \mathcal{O}(\log n)$.
 
 
 

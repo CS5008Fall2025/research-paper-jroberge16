@@ -89,7 +89,8 @@ In this section, we aim to prove, using strong induction, that the height ($h$) 
 
 #### Proof:
 
-<div style="color: black; border: 2px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+<blockquote>
+
 
 Let $N_h$ be the minimum number of nodes in an AVL tree of height $h$. We claim that
 $$
@@ -166,8 +167,7 @@ Taking the relationship derived above, we can derive $h$'s upper bound
 __Conclusion:__
 
 Since $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $O(h) = O(\log n)$.
-</div>
-
+</blockquote>
 
 #### Proof Discussion:
 &nbsp;&nbsp;&nbsp;&nbsp;

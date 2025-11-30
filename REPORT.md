@@ -136,7 +136,7 @@ _Inductive Step:_
 N_{k+1} &= N_k + N_{k-1} + 1\\
         &> N_{k-1} + N_{k-1} + 1
         \quad
-        \text{(k to k+1 and 1 to 0... lower bound)}\\
+        \text{(k to k-1 and 1 to 0... lower bound)}\\
         &> 2 \cdot N_{k-1}\\
         &> 2 \cdot 2^{(k-1)/2}
         \quad\text{(Inductive Hypothesis)}\\

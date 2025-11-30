@@ -213,6 +213,7 @@ $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h =O(\log (n))$
 | Delete | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
 
 </div>
+
 [^7] [^1]
 
 
@@ -223,6 +224,7 @@ The table above outlines the runtimes for insertion, deletion, and search. These
 <div align="center">
 <img src="data/images/insertFunction.png" alt="CorePrinciples.png">
 </div>
+
 [^14]
 
  ```math
@@ -240,6 +242,7 @@ In our code, we used a recursive definition to define AVL’s insert function. U
 <div align="center">
 <img src="data/images/SearchFunction.png" alt="CorePrinciples.png">
 </div>
+
 [^14]
 
 

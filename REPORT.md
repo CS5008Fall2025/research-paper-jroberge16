@@ -25,17 +25,22 @@ This research reviews and analyzes the AVL data structure. An AVL is a self-bala
 
 
 ## AVL Data Structure
-&nbsp;&nbsp;&nbsp;&nbsp;
-In 1962, a pair of Soviet mathematicians, Georgy Adelson-Velsky and Evgenii Landis, sought to create a data structure that guaranteed $O(\log(n))$ performance for deletion, search, and insertion[1]. To reach this goal, they needed a tree that was as dense as possible. This idea of a dense tree is what can be referred to as a balanced tree. A balanced tree is a tree whose height at the root node is no larger than $log(n)$ [3]. As previously discussed, when we have this property, a BST is guaranteed to achieve  $O(\log(n))$ performance, but a traditional BST is not guaranteed to be balanced. To solve this issue, our Soviet mathematicians created the AVL tree, which is a self-balancing binary search tree.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-Today, the AVL tree has a rich history of practical application.  For example, Linux kernel before 2.4.10 used AVL trees for tracking virtual memory areas. Linux also uses AVL trees for its peer cache tracking system. Generally, AVL trees are used in system operating kernels and other system software. AVL trees are foundational to computer science because they have characteristics that are both practical and useful. In particular, this data structure should be used if data is often inserted in order or if retrieval and deletion are random [4].
+In 1962, a pair of Soviet mathematicians, Georgy Adelson-Velsky and Evgenii Landis, sought to create a data structure that guaranteed $O(\log(n))$ performance for deletion, search, and insertion[1]. To reach this goal, they needed a tree that was as dense as possible. This idea of a dense tree is referred to as a balanced tree. A balanced tree is a tree whose height at the root node is no larger than $\log(n)$ [3]. As previously discussed, when we have this property, a BST is guaranteed to achieve  $O(\log(n))$ performance, but a traditional BST is not guaranteed to be balanced. To solve this issue, our Soviet mathematicians created the AVL tree, which is a self-balancing binary search tree.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-As discussed, this data structure is practical, but how does it achieve this? To gain an understanding of an AVL tree, we are going to discuss two topics: 
+Today, the AVL tree has a rich history of practical application.  For example, the Linux kernel before 2.4.10 used AVL trees for tracking virtual memory areas. Linux also uses AVL trees for its peer cache tracking system. Generally, AVL trees are used in system operating kernels and other system software. 
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+AVL trees are also used in database indexing. In the article, "Secure search for encrypted personal health records from big data NoSQL databases in cloud", the authors show the power of pairing a MongoDB database with an AVL tree and  Order Revealing Encryption (ORE). This system allowed a cloud provider to crawl through an index without exposing sensitive information—an important trait for health records. This system also preserved order, which enabled ranged queries.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+AVL trees are foundational to computer science because they have characteristics that are both practical and useful. In particular, this data structure should be used if data is often inserted in order or if retrieval and deletion are random [4]. In summary, this data structure provides predictable and stable performance. An AVL tree is powerful, but how does it achieve this? To gain an understanding of an AVL tree, we are going to discuss two topics: 
 * _Identifying Imbalance_: how an AVL tree identifies imbalance
 * _Rotation_: how an AVL tree corrects for this imbalance.
+
+
 
 ### Identifying Imbalance
 <div align="center">
@@ -409,7 +414,7 @@ This project was exciting and intense. Our biggest lesson was being able to effe
 ## References
 
 
-
+* https://research.ebsco.com/c/xrcudx/search/details/agtzb4yd6b/details?db=asn
 ## Appendix
 
 ### Rotations

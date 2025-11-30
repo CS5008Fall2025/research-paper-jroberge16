@@ -8,6 +8,7 @@
 #include "bench_utils.h"
 
 #include "bin_benchmarks.h"
+#include "../main.h"
 
 typedef BENCH_OPERATION BIN_OPERATION;
 
@@ -45,6 +46,14 @@ void cleanup_bin_benchmark(char** results, int max_results, BINIndex* tree){
     free_binary_tree(tree);
 }
 
+/**
+ * private function that run insertion benchmarks
+ * @param benchmark_file file to read numbers from
+ * @param benchmark_name name of the benchmark
+ * @param file_save_name file to save results to
+ * @param total_tree_size total size of the tree to grow to
+ * @param n_skip number of insertions between timings
+ */
 static void __get_insertion_time(char* benchmark_file, char* benchmark_name, char* file_save_name, int total_tree_size, int n_skip){
     printf("⌚ Gathering Insertion Time\n");
 
@@ -114,9 +123,17 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
 
 /**
  * When given an operation type, runs the benchmark
- * program and get total elasped time for `batch_size`
- * for an increamentally growing tree of size `total_tree_size`
+ * program and get total elapsed time for `batch_size`
+ * for an incrementally growing tree of size `total_tree_size`
  * which increments by `increment_tree_size` each iteration.
+ * 
+ * @param benchmark_file file to read numbers from
+ * @param benchmark_name name of the benchmark
+ * @param file_save_name file to save results to
+ * @param total_tree_size total size of the tree to grow to
+ * @param increment_tree_size size to increment tree by each iteration
+ * @param batch_size number of operations to run per batch
+ * @param operation_type type of operation to perform
  */
 static void __get_regular_operation_time(
                                     char* benchmark_file,
@@ -211,22 +228,24 @@ end_benchmark:
 
 
 
-
-void run_bin_benchmarks() {
-
+/**
+ * public function which runs the Binary benchmarking
+ * @param args command line arguments
+ */
+void run_bin_benchmarks(CommandLineArgs args) {
     // Insertion Benchmarks
-    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_bin_insertion" ,"./data/results/bin_inorder_results.csv", 200000, 5000);
-    __get_insertion_time("./data/samples/random_list.csv", "random_bin_insertion" ,"./data/results/bin_random_results.csv", 25000000, 5000);
+    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_bin_insertion" ,"./data/results/bin_inorder_results.csv", args.total_tree_size, args.increment_tree_size);
+    __get_insertion_time("./data/samples/random_list.csv", "random_bin_insertion" ,"./data/results/bin_random_results.csv", args.total_tree_size, args.increment_tree_size);
     
     //Search Benchmarks
     __get_regular_operation_time("./data/samples/random_list.csv", "random_bin_search", "./data/results/bin_random_search_results.csv",
-                                    25000000, 250000, 5000,SEARCH_OP);
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size,SEARCH_OP);
     __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_bin_search", "./data/results/bin_inorder_search_results.csv",
-                                    200000, 1000, 5000,SEARCH_OP);
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size,SEARCH_OP);
 
     // Delete Benchmarks
     __get_regular_operation_time("./data/samples/random_list.csv", "random_bin_delete", "./data/results/bin_random_delete_results.csv",
-                                    25000000  , 250000, 5000,DELETE_OP);
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size, DELETE_OP);
     __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_bin_delete", "./data/results/bin_inorder_delete_results.csv",
-                                    200000, 1000, 5000,DELETE_OP);
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size, DELETE_OP);
 }

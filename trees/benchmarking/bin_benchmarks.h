@@ -6,9 +6,9 @@
 
 
 #include <stdio.h>
+#include "../main.h"
 
 
-void run_bin_benchmarks();
-
+void run_bin_benchmarks(CommandLineArgs args);
 
 #endif

@@ -61,6 +61,7 @@ BINIndex* create_binary_tree(){
  */
 static void __insert_value(BINNode* node, int value){
 
+    // We loop until we find a leaf node
     while(node != NULL){
         BIN_GLOBAL_OPS++;
         // Traverse left or right
@@ -125,6 +126,8 @@ BINIndex* insert_binary(BINIndex* bin, int value){
 BINNode* search_binary(BINIndex* index, int value){
     BINNode* cur = index->root;
     BIN_GLOBAL_OPS = 0;
+    // Loop until we find the value
+    // if we hit a NULL we didnt find it
     while(cur != NULL){
         BIN_GLOBAL_OPS++; 
         if (cur->value == value){
@@ -142,7 +145,10 @@ BINNode* search_binary(BINIndex* index, int value){
     return NULL;
 }
 
-
+/**
+ * Finds the minimum value node in a binary tree
+ * @param curr current node
+ */
 static BINNode* __findMin(BINNode* curr){
     while(curr!= NULL && curr->left!=NULL){
         BIN_GLOBAL_OPS++;
@@ -198,7 +204,11 @@ static BINNode* __delete_binary_value(BINNode* curr, int value, int* deletion){
 }
 
 
-
+/**
+ * Public method for deleting value from binary tree
+ * @param index binary tree index
+ * @param value value to be deleted
+ */
 BINIndex* delete_binary_value(BINIndex* index, int value){
     BIN_GLOBAL_OPS = 0;    
     if(index == NULL){
@@ -219,6 +229,11 @@ BINIndex* delete_binary_value(BINIndex* index, int value){
         return index;
     }
 }
+
+/**
+ * frees nodes recursively (private)
+ * @param node current node being freed
+ */
 static void __free_nodes(BINNode* node) {
     if (node == NULL) {
         return;
@@ -228,6 +243,10 @@ static void __free_nodes(BINNode* node) {
     free(node);
 }
 
+/**
+ * frees binary tree
+ * @param index binary tree index
+ */
 void free_binary_tree(BINIndex* index) {
     if (index == NULL) {
         return;

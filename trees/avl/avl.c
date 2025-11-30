@@ -18,7 +18,7 @@ static AVLNode* get_min_node(AVLNode* node);
 static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted);
 static void __free_nodes(AVLNode* node);    
 
-// Gloabl Counter
+// Global Counter
 long long AVL_GLOBAL_OPS = 0;
 long int AVL_GLOBAL_ROTATIONS = 0;
 
@@ -51,6 +51,7 @@ static AVLNode* __create_node(int value){
         perror("Failed to allocate AVLIndex");
         exit(EXIT_FAILURE);
     }
+    // we set height to one since leafs have a height of 1
     new_node->height = 1;
     new_node->left = NULL;
     new_node->right = NULL;
@@ -79,7 +80,9 @@ AVLIndex* insert_avl(AVLIndex* index, int value){
         index->total_operations = AVL_GLOBAL_OPS;
         index->rotations = AVL_GLOBAL_ROTATIONS;
         return index;
-    } else {
+    }
+    // existing tree
+    else {
         int insert = 0;
         index->root = __insert_avlTree(root, value, &insert);
         index->total_Nodes += insert;
@@ -101,7 +104,7 @@ static int __get_max(int value1, int value2){
 }
 
 /**
- * Calculates the Balance factor
+ * gets height of the tree for specific node
  */
 int get_avl_height(AVLNode* node){
     AVL_GLOBAL_OPS++;
@@ -137,6 +140,7 @@ static AVLNode* __left_rotate(AVLNode* cur){
     AVLNode* cur_right = cur->right;
     AVLNode* cur_right_left = cur_right->left;
 
+    // performs a rotations and makes the right child the new root
     cur_right->left  = cur;
     cur->right = cur_right_left;
 
@@ -156,7 +160,8 @@ static AVLNode* __right_rotate(AVLNode* cur){
   AVL_GLOBAL_ROTATIONS++;
   AVLNode* cur_left =  cur->left;
   AVLNode* cur_left_right  = cur_left->right;
-
+  
+  // performs a rotations and makes the left child the new root
   cur_left->right = cur;
   cur->left = cur_left_right;
   cur->height = 1 + __get_max(get_avl_height(cur->left), get_avl_height(cur->right));
@@ -167,7 +172,7 @@ static AVLNode* __right_rotate(AVLNode* cur){
 
 
 /**
- * Rebalances the AVL tree when given an AVL node:
+ * Rebalances the AVL tree when given an AVL node
  * @param cur current node to be rebalanced
 */
 static AVLNode* __rebalance_tree(AVLNode* cur){
@@ -257,7 +262,10 @@ static AVLNode* __insert_avlTree(AVLNode* cur, int value, int* insert){
 
 
 
-
+/**
+ * Aquires the left most node in a subtree
+ * @param node node to get smallest value from
+ */
 static AVLNode* get_min_node(AVLNode* node){
     AVL_GLOBAL_OPS++;
     while (node->left != NULL){
@@ -275,10 +283,12 @@ static AVLNode* get_min_node(AVLNode* node){
  */
 static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
     AVL_GLOBAL_OPS++;
+    // Base case
     if(cur == NULL){
         *deleted = 0;
         return cur;
     }
+    // Searching for node to delete
     if(value < cur->value){
         AVL_GLOBAL_OPS++;
         cur->left = __delete_avl_value(cur->left, value, deleted);
@@ -290,7 +300,7 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
     // deleting node
     else{
         AVLNode* temp;
-        
+        // nothing beneath the left node delete it
         if (cur->left == NULL){
             AVL_GLOBAL_OPS++;
             temp = cur->right;
@@ -298,6 +308,7 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
             *deleted = 1;
             return temp;
         }
+        // nothing beneath the right node delete it
         else if(cur->right == NULL){
             AVL_GLOBAL_OPS++;
             temp = cur->left;
@@ -305,6 +316,7 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
             *deleted = 1;
             return temp;
         }
+        // we have subtrees search and find the left most node in the right subtree
         else{
             AVL_GLOBAL_OPS++;
             AVLNode* min_node = get_min_node(cur->right);
@@ -313,12 +325,19 @@ static AVLNode* __delete_avl_value(AVLNode *cur, int value, int* deleted){
             *deleted = 1;
         }
     }
+    // Work back up the tree and rebalance and calculate heights
     AVL_GLOBAL_OPS++;
     cur->height = 1 + __get_max(get_avl_height(cur->left), get_avl_height(cur->right));
     cur = __rebalance_tree(cur);
     return cur;
 }
 
+
+/**
+ * delete value from AVL tree (public)
+ * @param index AVL tree index
+ * @param value value to be deleted
+ */
 AVLIndex* delete_avl_value(AVLIndex *index, int value){
     AVLNode* root = index->root;
     AVL_GLOBAL_OPS = 0;
@@ -381,6 +400,10 @@ static void __free_nodes(AVLNode* node) {
     free(node);
 }
 
+/**
+ * Free tree and its componenets
+ * @param index AVL tree index
+ */
 void free_avl_tree(AVLIndex* index) {
     if (index == NULL) {
         return;

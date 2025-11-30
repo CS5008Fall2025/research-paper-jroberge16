@@ -391,13 +391,61 @@ All our indicators show that our line is BLUE (best linear unbiased estimator). 
 
 ## Appendix
 
-### Left Rotation:
+
+### Rotations
+
+__Left Rotation:__
+
 <div align="center">
 <img id="left-rotation" src="data/images/LeftRotate.png" alt="CorePrinciples.png">
 </div>
 
-### Right-Left Rotation:
+__Right-Left Rotation:__
 
 <div align="center">
 <img id="right-left-rotation" src="data/images/RightLeftRotate.png" alt="CorePrinciples.png">
+</div>
+
+
+
+<h3 id="trad-bst"><strong>
+Traditional BST Results
+</strong>
+</h3>
+
+BST Delete
+<div align="center">
+<img src="data/plots/binary_deletion_performance_analysis.png">
+</div>
+
+BST Insert
+<div align="center">
+<img src="data/plots/binary_insertion_performance_analysis.png">
+</div>
+
+BST Search
+<div align="center">
+<img src="data/plots/binary_search_performance_analysis.png">
+</div>
+
+### Additional AVL Results:
+AVL Delete
+<div align="center">
+<img src="data/plots/avl_deletion_performance_analysis.png">
+</div>
+
+AVL Insert
+<div align="center">
+<img src="data/plots/avl_insertion_performance_analysis.png">
+</div>
+
+AVL Search
+<div align="center">
+<img src="data/plots/avl_search_performance_analysis.png">
+</div>
+
+
+
+<div align="center" id="mod">
+<img src="data/images/ols_results.png">
 </div>

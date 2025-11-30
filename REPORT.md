@@ -263,7 +263,6 @@ Our search function uses an iterative approach. As shown in the above code, this
 
 [^14] [^8]
 
-
 ```math
 
 T(n) = T_{Search}(\log(n)) + T_{FindReplacement}(\log(n)) + T_{MetricsRotations}(\log(n)) = 3\cdot \log(n) = O(log(n))

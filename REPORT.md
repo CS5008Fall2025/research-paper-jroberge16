@@ -110,9 +110,10 @@ N_R = N_{h-2}
 
  thus,
 
- $$
+ ```math
   N_h = N_{h-1} + N_{h-2} + 1
- $$
+ ```
+
 [^10] [^11] [^12]
 </div>
 
@@ -129,7 +130,7 @@ _Base Cases_
 _Inductive Hypothesis:_ Assume $k \ge 3$ and $\forall h$ s.t. $2 \ge h \le k$ that $N_h \ge 2^{\frac{h}{2}}$
 
 _Inductive Step:_
-$$
+ ```math
 \begin{align*}
 N_{k+1} &= N_k + N_{k-1} + 1\\
         &> N_{k-1} + N_{k-1} + 1
@@ -140,7 +141,7 @@ N_{k+1} &= N_k + N_{k-1} + 1\\
         &> 2^{1 + (k-1)/2}\\
         &> 2^{(k+1)/2}
 \end{align*}
-$$
+```
 thus: $N_{k+1} \ge 2^{\frac{k+1}{2}}$
 
 _conclusion_: $N_h \ge 2^{\frac{h}{2}}$ $\forall h\ge 2$
@@ -150,13 +151,13 @@ _conclusion_: $N_h \ge 2^{\frac{h}{2}}$ $\forall h\ge 2$
 <div style="margin-left: 40px;">
 
 Taking the relationship derived above, we can derive $h$'s upper bound
-$$
+```math
 \begin{align*}
     N_h &> 2^{h/2}\\
     \log_2(N_h) &> \frac{h}{2}\\
     h &< 2\log_2(N_h)
 \end{align*}
-$$
+```
 [^11] [^10]
 </div>
 
@@ -176,11 +177,11 @@ This idea of defining the lower bound $N_h$ is foundational to our proof. We rel
 
 __Step One: Define the Recursive Relationship__
 
-$$
+```math
 
   N_h = N_{h-1} + N_{h-2} + 1
 
-$$
+```
 &nbsp;&nbsp;&nbsp;&nbsp;
 The above equation defines $N_h$ recursively by summing the nodes of the left and right trees plus the parent node. As previously discussed, an AVL tree’s height is bounded by the balancing factor, which states that $|B_f| \le 1$. Given this constraint, the left and right trees of $N_h$ can at most have a one-level difference. This information allows us to define $N_h$ recursively[^10] [^12].
 
@@ -225,9 +226,9 @@ The table above outlines the runtimes for insertion, deletion, and search. These
 [^14]
 </div>
 
-$$
+ ```math
 T(n) = T_{Search}(\log(n)) + T_{RebalanceHeight}(\log(n)) = 2\cdot \log(n) = O(log(n))
-$$
+```
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 The above code outlines a recursive definition of our AVL insert function. We can break down this pseudocode into two phases. In the first phase, we search for a location to insert our new value. The search phase ends once we hit a leaf node, and we know this traversal will have $O(\log(n))$ due to our height. Once we hit our leaf node, we will enter phase two: `RebalanceMetrics`. In this phase, we move back up our tree, while updating our height and rebalancing the tree if needed. In this phase, we are guaranteed to make no more than two rotation [^11]. Note that the best-case, worst-case, and average-case for inserting into an AVL tree are all $O(log(n))$  since we must always traverse to the leaf node and back up again.
@@ -245,12 +246,11 @@ In our code, we used a recursive definition to define AVL’s insert function. U
 </div>
 
 
-$$
+```math
 
 T(n) = T_{search}(\log(n))
 
-$$
-
+```
 &nbsp;&nbsp;&nbsp;&nbsp;
 The above code outlines our definition for searching an AVL tree. We start off with a `while` loop, which iterates until we find our search value. Given the worst-case scenario, we must traverse to the leaf node, which would be $O(\log(n))$. Looking beyond a worst-case scenario, our best-case would be $O(1)$, which assumes we find our value in the root node. Our average-case would traverse halfway down the tree, which would still be a factor of $log(n)$ .
 
@@ -269,12 +269,11 @@ Our search function uses an iterative approach. As shown in the above code, this
 </div>
 
 
-$$
+```math
 
 T(n) = T_{Search}(\log(n)) + T_{FindReplacement}(\log(n)) + T_{MetricsRotations}(\log(n)) = 3\cdot \log(n) = O(log(n))
 
-$$
-
+```
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 The above code outlines our process for deleting a value from an AVL tree. To accomplish this goal, our code iterates through three distinct phases. In the first phase, we move down to the node we want to delete, which under the worst-case, would be $O(log(n)) = O(h)$. Once we find the value to delete, we move into phase two. The goal of phase two is to find a replacement value for our deleted node. To find a replacement value, we will find the minimum value in the deleted node's right subtree. After finding this node, we move it to the deleted node’s location. This operation, under a worst-case scenario, contributes $O \log(n)$ to our runtime. In our third and final phase, we move back up our tree, while recalculating height and performing any necessary rotations. Unlike insertion, which at most can cause two rotations, deleting can have a cascading effect, which will cause $log(n)$ rotations. Taken together, we arrive at a worst-case scenario of  $O(log(n))$, which is outlined in the equation above. Since we must always find a replacement node in this process, which is $O(log(n))$ deep, our best and average case will also be $\log(n)$.
@@ -282,12 +281,11 @@ The above code outlines our process for deleting a value from an AVL tree. To ac
 &nbsp;&nbsp;&nbsp;&nbsp;
 Our definition of deletion uses recursion, which means each recursive call contributes to our overall memory footprint. Each individual recursive call uses $O(1)$ space, and thus we need only to account for the total stack depth, which is:
 
-$$
+```math
 
 S(n) = StackDepth = O(log(n))
 
-$$
-
+```
 &nbsp;&nbsp;&nbsp;&nbsp;
 It should be noted that this is a recursive definition for deletion, but there are iterative solutions. If we were to use an iterative solution, we would have $S(n) = O(1)$. To achieve this space complexity, we would need to implement parent pointers for each node, so that we could traverse backwards [^7].
 
@@ -410,9 +408,10 @@ The graph above describes the number of rotations per dataset and function type.
 <img id="right-left-rotation" src="data/plots/regression_analysis.png" alt="regression_analysis.png">
 </div>
 
-$$
+```math
 Operations = c_1 \cdot \log(n) + c_2 =22  \cdot \log(n) + 291
-$$
+```
+
 &nbsp;&nbsp;&nbsp;&nbsp;
 As a final analysis, we decided to perform a simple linear regression. The goal of this analysis is to regress the number of operations against $\log(n)$, and by doing so, reveal $O(log(n))$ performance. Our results and equation can be found above, and additional information for our model can be found in the appendix.
 

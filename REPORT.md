@@ -1,8 +1,3 @@
-<style>
-h1 {
-  border-bottom: none;
-}
-</style>
 <div align="center">
 <h1>AVL Tree</h1>
 </div>

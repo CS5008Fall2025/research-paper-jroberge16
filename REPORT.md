@@ -445,37 +445,6 @@ This project was exciting and intense. Our biggest lesson was being able to effe
 
 
 
-## References
-[^1]: Beadle, A. (n.d.). Historical origins of data structures and algorithms. csc162. https://www.cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf
-
-[^2]: Brown, R. A. (2024). Comparative performance of the AVL tree to three variants of the red-black tree. Arxiv. https://doi.org/10.22541/au.173377871.17799160/v1 
-
-[^3]: Chen, L., Zhang, N., Sun, H.-M., Chang, C.-C., Yu, S., & Choo, K.-K. R. (2019). Secure search for encrypted personal health records from Big Data nosql databases in cloud. Computing, 102(6), 1521–1545. https://doi.org/10.1007/s00607-019-00762-z
-
-[^4]: De Silva, M. (2023). AVL Trees Simply Explained. https://www.youtube.com/watch?v=zP2xbKerIds 
-
-[^5]: GeeksforGeeks. (2025a, July 23). Balanced binary tree. GeeksforGeeks. https://www.geeksforgeeks.org/dsa/balanced-binary-tree/ 
-
-[^6]: GeeksforGeeks. (2025b, July 23). Binary tree in python. https://www.geeksforgeeks.org/python/binary-tree-in-python/ 
-
-[^7]: GeeksforGeeks. (2025c, July 23). Insertion, searching and deletion in AVL trees containing a parent node pointer. https://www.geeksforgeeks.org/dsa/avl-trees-containing-a-parent-node-pointer/ 
-
-[^8]: GeeksforGeeks. (2025d, October 14). Deletion in AVL tree (BST). GeeksforGeeks. https://www.geeksforgeeks.org/dsa/deletion-in-an-avl-tree/
-
-[^9]: Goodrich, T. (2004). AVL Trees. https://www.cs.emory.edu/~cheung/Courses/253/Syllabus/book/PDF/avltrees.pdf
-
-[^10]: Moshiri, N. (2020). Advanced Data Structures: Proof of AVL Tree Worst-Case Time Complexity. YouTube. https://www.youtube.com/watch?v=hUzRX1LzGXI
-
-[^11]: Mount, D. (2019). CMSC 420: Lecture 5 AVL Trees. https://www.cs.umd.edu/class/fall2019/cmsc420-0201/Lects/lect05-avl.pdf
-
-[^12]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://doi.org/10.1145/1012888.1005742
-
-[^13]: Sadeghian, P. (2021). Advanced tree structures CMSC132. CMSC132. http://www.cs.umd.edu/class/fall2021/cmsc132-030X/labs/Week15/AdvancedTrees.pdf
-
-[^14]: W3Schools . (n.d.). Python AVL Trees. W3Schools Online Web Tutorials. https://www.w3schools.com/python/python_dsa_avltrees.asp
-
-
-
 ## Appendix
 
 ### Rotations
@@ -535,3 +504,34 @@ AVL Search
 <div align="center" id="mod">
 <img src="data/images/ols_results.png">
 </div>
+
+
+## References
+
+[^1]: Beadle, A. (n.d.). Historical origins of data structures and algorithms. csc162. https://www.cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf
+
+[^2]: Brown, R. A. (2024). Comparative performance of the AVL tree to three variants of the red-black tree. Arxiv. https://doi.org/10.22541/au.173377871.17799160/v1 
+
+[^3]: Chen, L., Zhang, N., Sun, H.-M., Chang, C.-C., Yu, S., & Choo, K.-K. R. (2019). Secure search for encrypted personal health records from Big Data nosql databases in cloud. Computing, 102(6), 1521–1545. https://doi.org/10.1007/s00607-019-00762-z
+
+[^4]: De Silva, M. (2023). AVL Trees Simply Explained. https://www.youtube.com/watch?v=zP2xbKerIds 
+
+[^5]: GeeksforGeeks. (2025a, July 23). Balanced binary tree. GeeksforGeeks. https://www.geeksforgeeks.org/dsa/balanced-binary-tree/ 
+
+[^6]: GeeksforGeeks. (2025b, July 23). Binary tree in python. https://www.geeksforgeeks.org/python/binary-tree-in-python/ 
+
+[^7]: GeeksforGeeks. (2025c, July 23). Insertion, searching and deletion in AVL trees containing a parent node pointer. https://www.geeksforgeeks.org/dsa/avl-trees-containing-a-parent-node-pointer/ 
+
+[^8]: GeeksforGeeks. (2025d, October 14). Deletion in AVL tree (BST). GeeksforGeeks. https://www.geeksforgeeks.org/dsa/deletion-in-an-avl-tree/
+
+[^9]: Goodrich, T. (2004). AVL Trees. https://www.cs.emory.edu/~cheung/Courses/253/Syllabus/book/PDF/avltrees.pdf
+
+[^10]: Moshiri, N. (2020). Advanced Data Structures: Proof of AVL Tree Worst-Case Time Complexity. YouTube. https://www.youtube.com/watch?v=hUzRX1LzGXI
+
+[^11]: Mount, D. (2019). CMSC 420: Lecture 5 AVL Trees. https://www.cs.umd.edu/class/fall2019/cmsc420-0201/Lects/lect05-avl.pdf
+
+[^12]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://doi.org/10.1145/1012888.1005742
+
+[^13]: Sadeghian, P. (2021). Advanced tree structures CMSC132. CMSC132. http://www.cs.umd.edu/class/fall2021/cmsc132-030X/labs/Week15/AdvancedTrees.pdf
+
+[^14]: W3Schools . (n.d.). Python AVL Trees. W3Schools Online Web Tutorials. https://www.w3schools.com/python/python_dsa_avltrees.asp

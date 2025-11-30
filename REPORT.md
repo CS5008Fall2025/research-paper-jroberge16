@@ -256,18 +256,6 @@ It should be noted that this is a recursive definition for deletion, but there a
 
 
 
-## Appendix
-
-### Left Rotation:
-<div align="center">
-<img id="left-rotation" src="data/images/LeftRotate.png" alt="CorePrinciples.png">
-</div>
-
-### Right-Left Rotation:
-
-<div align="center">
-<img id="right-left-rotation" src="data/images/RightLeftRotate.png" alt="CorePrinciples.png">
-</div>
 
 
 ## Implementation/Experimental Design
@@ -338,3 +326,78 @@ Our benchmarking library housed the logic for tracking our experiments. Each tre
 * `__get_insertion_time`:  tracks the runtime for inserting values.
 
 To run an experiment, the user needs to call `make main` and then call `./main.out`. If the user desires to control the experimental run, they can pass in additional keyword arguments (see figure above).
+
+
+## Empirical Analysis:
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+In this section, we will review the results from the experiment described in the previous section. This empirical analysis will be used to support our theoretical analysis. This analysis will use both descriptive and inferential analytics. Our descriptive analysis will describe what our various plots are showing. Our inferential analysis will use a linear model to describe our results.
+
+
+### Operation Counts Vs Function Call:
+
+<div align="center">
+<img id="right-left-rotation" src="data/plots/ops_vs_func.png" alt="ops_vs_func.png">
+</div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+The three graphs above describe our three major functions: search, deletion, and insertion. Each graph contains two lines, which represent the in-order and random datasets. The results in the above graph clearly show a logarithmic trend as the number of nodes ($n$) increases. Delving deeper into the plot, we note additional observations.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our first observation of note is the noticeable steps in our `in-order dataset lines`.  We are not exactly sure why we are seeing this stepping pattern, but we hypothesize that in-order insertion causes leaf node levels to be more uniform. Another insight comes from the noise in the `delete random line`. This noise is expected since deletion can cause cascading changes, but nonetheless, this trend still looks logarithmic. To summarize, these results all show and support $O(\log(n))$ performance for our functions.
+
+
+### Height Vs Number of Nodes:
+
+<div align="center">
+<img id="right-left-rotation" src="data/plots/height.png" alt="height.png">
+</div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+The graph above describes how a tree’s height ($h$) corresponds to the number of nodes in an AVL tree ($n$). Previously, our proof showed that $h=O(log(n))$, and once again, our results clearly support our initial conclusion. In the graph, we again see a stepping pattern that represents our tree acquiring another level. Another notable pattern comes from the significant height difference between a randomly built AVL tree and an in-order built AVL tree. This aligns with Brown’s findings, which noted that in-order insertion produced a tree that was over 2 times faster than a randomly built tree [CITE]. The performance can be seen in the level difference between the two implementations. The results in the plot above support that height is indeed $O(log(n))$.
+
+
+### Total Rotations:
+
+<div align="center">
+<img id="right-left-rotation" src="data/plots/rotations_vs_func.png" alt="rotations_vs_func.png">
+</div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+The graph above describes the number of rotations per dataset and function type. Some interesting findings can be derived from the graph above, which further highlight a stark difference between in-order and randomly built AVL trees. The first thing to note is AVL’s in-order insertion column. This column shows that in-order insertions caused 1 rotation for every inserted value. This result makes sense since in order insertion would cause the maximum number of rotations [Brown, cite]. Essentially, we are constantly building a “linked-list” which must be corrected with a corresponding rotation. Brown’s work showed that a sorted AVL tree caused a nearly 2 times increase in the number of rotations when compared to a randomly built AVL tree, and our results confirm his findings.
+
+### Linear Regression:
+
+<div align="center">
+<img id="right-left-rotation" src="data/plots/regression_analysis.png" alt="regression_analysis.png">
+</div>
+
+$$
+Operations = c_1 \cdot \log(n) + c_2 =22  \cdot \log(n) + 291
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;
+As a final analysis, we decided to perform a simple linear regression. The goal of this analysis is to regress the number of operations against $\log(n)$, and by doing so, reveal $O(log(n))$ performance. Our results and equation can be found above, and additional information for our model can be found in the appendix.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our experiment was able to produce an $R^2$ value of 52%. Our $R^2$ reveals how important a theoretical analysis is for any study. Data for an empirical analysis can be very noisy, and this noise can make results ambiguous. Although we had a poor $R ^2$ value, what we really care about is our residuals. By studying our residuals, we can determine our goodness of fit.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+All our indicators show that our line is BLUE (best linear unbiased estimator). Our QQ plot shows that our residuals are normally distributed. The residual plot shows homoscedasticity and normally distributed residuals. The only violation of BLUE would be the linearity assumption. The linearity assumption may be broken since we can see a slight stepping pattern in our residual plot. This stepping pattern can be explained with the height of our tree increasing for specific ranges of $n$. In summary, our model shows $log(n)$ performance, which aligns with our theoretical analysis.
+
+
+
+
+
+
+## Appendix
+
+### Left Rotation:
+<div align="center">
+<img id="left-rotation" src="data/images/LeftRotate.png" alt="CorePrinciples.png">
+</div>
+
+### Right-Left Rotation:
+
+<div align="center">
+<img id="right-left-rotation" src="data/images/RightLeftRotate.png" alt="CorePrinciples.png">
+</div>

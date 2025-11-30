@@ -384,13 +384,18 @@ Our experiment was able to produce an $R^2$ value of 52%. Our $R^2$ reveals how 
 &nbsp;&nbsp;&nbsp;&nbsp;
 All our indicators show that our line is BLUE (best linear unbiased estimator). Our QQ plot shows that our residuals are normally distributed. The residual plot shows homoscedasticity and normally distributed residuals. The only violation of BLUE would be the linearity assumption. The linearity assumption may be broken since we can see a slight stepping pattern in our residual plot. This stepping pattern can be explained with the height of our tree increasing for specific ranges of $n$. In summary, our model shows $log(n)$ performance, which aligns with our theoretical analysis.
 
+## Conclusion
 
 
+
+
+
+
+## References
 
 
 
 ## Appendix
-
 
 ### Rotations
 

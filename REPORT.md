@@ -212,10 +212,8 @@ $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h =O(\log (n))$
 | Delete | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
 
 </div>
-<div align="Right">
 [^7] [^1]
-</div>
-<br>
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 The table above outlines the runtimes for insertion, deletion, and search. These runtimes are made possible because an AVL tree’s height is $O(log(n))$ ([see proof](#proof)); This means, the cost of traversing to a leaf node will also be $O(\log(n))$. To explain and validate the above runtimes, we will walk through each of the functions’ pseudocode and then explain there time and space complexity.
@@ -224,9 +222,7 @@ The table above outlines the runtimes for insertion, deletion, and search. These
 <div align="center">
 <img src="data/images/insertFunction.png" alt="CorePrinciples.png">
 </div>
-<div align="Right">
 [^14]
-</div>
 
  ```math
 T(n) = T_{Search}(\log(n)) + T_{RebalanceHeight}(\log(n)) = 2\cdot \log(n) = O(log(n))
@@ -243,9 +239,7 @@ In our code, we used a recursive definition to define AVL’s insert function. U
 <div align="center">
 <img src="data/images/SearchFunction.png" alt="CorePrinciples.png">
 </div>
-<div align="Right">
 [^14]
-</div>
 
 
 ```math
@@ -266,9 +260,7 @@ Our search function uses an iterative approach. As shown in the above code, this
 <img src="data/images/deleteFunction.png" alt="CorePrinciples.png">
 </div>
 
-<div align="Right">
 [^14] [^8]
-</div>
 
 
 ```math

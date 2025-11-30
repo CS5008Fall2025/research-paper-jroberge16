@@ -131,7 +131,7 @@ _Inductive Hypothesis:_ Assume $k \ge 3$ and $\forall h$ s.t. $2 \ge h \le k$ th
 
 _Inductive Step:_
 
- ```math
+```math
 \begin{align*}
 N_{k+1} &= N_k + N_{k-1} + 1\\
         &> N_{k-1} + N_{k-1} + 1

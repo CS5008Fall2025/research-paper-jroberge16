@@ -384,7 +384,7 @@ Our first observation of note is the noticeable steps in our `in-order dataset l
 </div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-The graph above describes how a tree’s height ($h$) corresponds to the number of nodes in an AVL tree ($n$). Previously, our proof showed that $h=O(log(n))$, and once again, our results clearly support our initial conclusion. In the graph, we again see a stepping pattern that represents our tree acquiring another level. Another notable pattern comes from the significant height difference between a randomly built AVL tree and an in-order built AVL tree. This aligns with Brown’s findings, which noted that in-order insertion produced a tree that was over 2 times faster than a randomly built tree [^2]. The performance can be seen in the level difference between the two implementations. The results in the plot above support that height is indeed $O(log(n))$.
+The graph above describes how a tree’s height ($h$) corresponds to the number of nodes in an AVL tree ($n$). Previously, our proof showed that $h=O(log(n))$, and once again, our results clearly support our initial conclusion. In the graph, we again see a stepping pattern that represents our tree acquiring another level. Another notable pattern comes from the significant height difference between a randomly built AVL tree and an in-order built AVL tree. This aligns with Brown’s findings, which noted that in-order insertion produced a tree that was over 2 times faster than a randomly built tree [^3]. The performance can be seen in the level difference between the two implementations. The results in the plot above support that height is indeed $O(log(n))$.
 
 
 ### Total Rotations:
@@ -394,7 +394,7 @@ The graph above describes how a tree’s height ($h$) corresponds to the number 
 </div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-The graph above describes the number of rotations per dataset and function type. Some interesting findings can be derived from the graph above, which further highlight a stark difference between in-order and randomly built AVL trees. The first thing to note is AVL’s in-order insertion column. This column shows that in-order insertions caused 1 rotation for every inserted value. This result makes sense since in order insertion would cause the maximum number of rotations [^2] [^11]. Essentially, we are constantly building a “linked-list” which must be corrected with a corresponding rotation. Brown’s work showed that a sorted AVL tree caused a nearly 2 times increase in the number of rotations when compared to a randomly built AVL tree, and our results confirm his findings [^2].
+The graph above describes the number of rotations per dataset and function type. Some interesting findings can be derived from the graph above, which further highlight a stark difference between in-order and randomly built AVL trees. The first thing to note is AVL’s in-order insertion column. This column shows that in-order insertions caused 1 rotation for every inserted value. This result makes sense since in order insertion would cause the maximum number of rotations [^3] [^12]. Essentially, we are constantly building a “linked-list” which must be corrected with a corresponding rotation. Brown’s work showed that a sorted AVL tree caused a nearly 2 times increase in the number of rotations when compared to a randomly built AVL tree, and our results confirm his findings [^3].
 
 ### Linear Regression:
 
@@ -457,8 +457,11 @@ __Right-Left Rotation:__
 
 <h3 id="trad-bst"><strong>
 Traditional BST Results
+
 </strong>
 </h3>
+
+_*Note: For the BST implementation we used these resources: [^9][^6][^11]_
 
 BST Delete
 <div align="center">
@@ -500,30 +503,31 @@ AVL Search
 
 ## References
 
-[^1]: Beadle, A. (n.d.). Historical origins of data structures and algorithms. csc162. https://www.cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf
+[^1]: algorithmroom. (2025). AVL Tree (Balanced Tree). https://www.algorithmroom.com/dsa/avl-tree-balanced-tree
 
-[^2]: Brown, R. A. (2024). Comparative performance of the AVL tree to three variants of the red-black tree. Arxiv. https://doi.org/10.22541/au.173377871.17799160/v1 
+[^2]: Beadle, A. (n.d.). Historical origins of data structures and algorithms. csc162. https://www.cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf 
 
-[^3]: Chen, L., Zhang, N., Sun, H.-M., Chang, C.-C., Yu, S., & Choo, K.-K. R. (2019). Secure search for encrypted personal health records from Big Data nosql databases in cloud. Computing, 102(6), 1521–1545. https://doi.org/10.1007/s00607-019-00762-z
+[^3]: Brown, R. A. (2024). Comparative performance of the AVL tree to three variants of the red-black tree. Arxiv. https://doi.org/10.22541/au.173377871.17799160/v1 
 
-[^4]: De Silva, M. (2023). AVL Trees Simply Explained. https://www.youtube.com/watch?v=zP2xbKerIds 
+[^4]: Chen, L., Zhang, N., Sun, H.-M., Chang, C.-C., Yu, S., & Choo, K.-K. R. (2019). Secure search for encrypted personal health records from Big Data nosql databases in cloud. Computing, 102(6), 1521–1545. https://doi.org/10.1007/s00607-019-00762-z 
 
-[^5]: GeeksforGeeks. (2025a, July 23). Balanced binary tree. GeeksforGeeks. https://www.geeksforgeeks.org/dsa/balanced-binary-tree/ 
+[^5]: De Silva, M. (2023). AVL Trees Simply Explained. https://www.youtube.com/watch?v=zP2xbKerIds 
+[^6]: GeeksforGeeks. (2025a, July 23). Balanced binary tree. GeeksforGeeks. https://www.geeksforgeeks.org/dsa/balanced-binary-tree/
 
-[^6]: GeeksforGeeks. (2025b, July 23). Binary tree in python. https://www.geeksforgeeks.org/python/binary-tree-in-python/ 
+[^7]: GeeksforGeeks. (2025b, July 23). Binary tree in python. https://www.geeksforgeeks.org/python/binary-tree-in-python/
 
-[^7]: GeeksforGeeks. (2025c, July 23). Insertion, searching and deletion in AVL trees containing a parent node pointer. https://www.geeksforgeeks.org/dsa/avl-trees-containing-a-parent-node-pointer/ 
+[^8]: GeeksforGeeks. (2025c, July 23). Insertion, searching and deletion in AVL trees containing a parent node pointer. https://www.geeksforgeeks.org/dsa/avl-trees-containing-a-parent-node-pointer/ 
 
-[^8]: GeeksforGeeks. (2025d, October 14). Deletion in AVL tree (BST). GeeksforGeeks. https://www.geeksforgeeks.org/dsa/deletion-in-an-avl-tree/
+[^9]: GeeksforGeeks. (2025d, October 14). Deletion in binary search tree (BST). GeeksforGeeks. https://www.geeksforgeeks.org/dsa/deletion-in-binary-search-tree/ 
 
-[^9]: Goodrich, T. (2004). AVL Trees. https://www.cs.emory.edu/~cheung/Courses/253/Syllabus/book/PDF/avltrees.pdf
+[^10]: Goodrich, T. (2004). AVL Trees. https://www.cs.emory.edu/~cheung/Courses/253/Syllabus/book/PDF/avltrees.pdf 
 
-[^10]: Moshiri, N. (2020). Advanced Data Structures: Proof of AVL Tree Worst-Case Time Complexity. YouTube. https://www.youtube.com/watch?v=hUzRX1LzGXI
+[^11]: Moshiri, N. (2020). Advanced Data Structures: Proof of AVL Tree Worst-Case Time Complexity. YouTube. https://www.youtube.com/watch?v=hUzRX1LzGXI 
 
-[^11]: Mount, D. (2019). CMSC 420: Lecture 5 AVL Trees. https://www.cs.umd.edu/class/fall2019/cmsc420-0201/Lects/lect05-avl.pdf
+[^12]: Mount, D. (2019). CMSC 420: Lecture 5 AVL Trees. https://www.cs.umd.edu/class/fall2019/cmsc420-0201/Lects/lect05-avl.pdf 
 
-[^12]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://doi.org/10.1145/1012888.1005742
+[^13]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://doi.org/10.1145/1012888.1005742 
 
-[^13]: Sadeghian, P. (2021). Advanced tree structures CMSC132. CMSC132. http://www.cs.umd.edu/class/fall2021/cmsc132-030X/labs/Week15/AdvancedTrees.pdf
+[^14]: Sadeghian, P. (2021). Advanced tree structures CMSC132. CMSC132. http://www.cs.umd.edu/class/fall2021/cmsc132-030X/labs/Week15/AdvancedTrees.pdf 
 
-[^14]: W3Schools . (n.d.). Python AVL Trees. W3Schools Online Web Tutorials. https://www.w3schools.com/python/python_dsa_avltrees.asp
+[^15]: W3Schools . (n.d.). Python AVL Trees. W3Schools Online Web Tutorials. https://www.w3schools.com/python/python_dsa_avltrees.asp 

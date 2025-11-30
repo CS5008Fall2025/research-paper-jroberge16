@@ -103,10 +103,11 @@ __Recursive Relationship__
 
 
  Let $N_L$ and $N_R$ be the minimum number of nodes for $N_h$'s left and right subtree. $N_h$ can be defined as a sum of $N_h = N_{L} + N_{R} +1$ (+1 is for the connecting edge). Since we are dealing with the worst-case scenario and  we are constrained by our AVL's balance factor ($|B_F| \leq 1$), we derive the following relationship:
-$$
- N_L = N_{h-1} \text{, }
- N_R = N_{h-2}
-$$
+```math
+N_L = N_{h-1} \text{, }
+N_R = N_{h-2}
+```
+
  thus,
 
  $$

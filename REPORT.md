@@ -170,6 +170,7 @@ Since $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $O(h) = O(\log n)$.
 </blockquote>
 
 #### Proof Discussion:
+
 &nbsp;&nbsp;&nbsp;&nbsp;
 The proof above shows that the height of an AVL tree is bounded by $O(\log(n))$. We were able to come to this conclusion by combining the proofs  of Goodrich, Moshiri, and Mount [^10] [^11] [^12]. Upon studying their proofs, it was revealed that solving for height ($h$) was more difficult than solving for the minimum number of nodes under a specific height ($N_h$). If we can show that $N_h$ grows exponentially as $h$ increases, we can reverse this relationship and thus show $h = O(\log(n))$.
 
@@ -177,7 +178,7 @@ The proof above shows that the height of an AVL tree is bounded by $O(\log(n))$.
 This idea of defining the lower bound $N_h$ is foundational to our proof. We rely on $N_h$ because this provides the least amount of restraint on the growth of $h$.  Meaning, if $N_h$ still grows exponentially, then anything above this is still greater than or equal to exponential growth. Given the relationship between the growth of $N_h$ and the growth of $h$, we were able to solve for the upper bound of $h$ in a three-step process:
 
 
-__Step One: Define the Recursive Relationship__
+##### Step One: Define the Recursive Relationship
 
 ```math
 
@@ -188,13 +189,13 @@ __Step One: Define the Recursive Relationship__
 The above equation defines $N_h$ recursively by summing the nodes of the left and right trees plus the parent node. As previously discussed, an AVL tree’s height is bounded by the balancing factor, which states that $|B_f| \le 1$. Given this constraint, the left and right trees of $N_h$ can at most have a one-level difference. This information allows us to define $N_h$ recursively[^10] [^12].
 
 
-__Step Two: Lower Bound of $N_h$:__
+##### Step Two: Lower Bound of $N_h$:
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 Moshiri’s proof uses a direct proof via algebraic manipulation to show the lower bound of $N_h$ [^11]. Our proof took a slightly different route, where we decided to use strong induction like Goodrich [^10]. In our proof, take note that we are able to simplify $N_k + N_{k-1} + 1$ to $ 2N_{k-1}$. We are able to do this because $N_k + N_{k-1} + 1 > 2N_{k-1}$, and thus still allows us to solve the looser lower bound of $N_h$. This step allowed us to simplify the process for solving for $N_h$, but it is worth mentioning that Mount did not take this step. In Mount’s proof, he was able to obtain a tighter bound for $N_h$  using the golden ratio and the Fibonacci sequence.
 
 
-__Step Three: Upper Bound of $h$__
+##### Step Three: Upper Bound of $h$
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 With the strong induction proof in hand, it was now time to solve for the upper bound of $h$. We were able to show the upper bound of $h$ with simple algebraic manipulation. After manipulating $N_h > 2^{h/2}$, we were able to find that $h < 2\log_2(N_h)$. Using asymptotic notation, we were able to conclude:

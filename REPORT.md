@@ -130,6 +130,7 @@ _Base Cases_
 _Inductive Hypothesis:_ Assume $k \ge 3$ and $\forall h$ s.t. $2 \ge h \le k$ that $N_h \ge 2^{\frac{h}{2}}$
 
 _Inductive Step:_
+
  ```math
 \begin{align*}
 N_{k+1} &= N_k + N_{k-1} + 1\\

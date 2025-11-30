@@ -386,8 +386,23 @@ All our indicators show that our line is BLUE (best linear unbiased estimator). 
 
 ## Conclusion
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+This report presents a comprehensive analysis of AVL trees. In this analysis, we were able to build, validate, and test our AVL tree. To conclude, we will walk through each section of the report and highlight some of the key takeaways.
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+In the first section, AVL Data Structure, we began by describing an AVL tree’s history and use in practical applications. An AVL tree can often be found in Linux kernels, database indices, and so on. After showing the practical aspects of an AVL tree, we went on to describe how an AVL tree maintains its balance. An AVL tree identifies imbalance by using the balance factor, and then corrects for that imbalance using rotations.
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+After providing an overview of an AVL tree, we went on to perform a theoretical runtime analysis in the next section. We started this analysis by proving that $h = O(log(n))$. This proof was foundational because it was subsequently relied on for our Big-O analysis for search, deletion, and insertion. All our time complexities revealed $O(log(n))$ performance. Our space complexity analysis also revealed why it is often better to use iteration over recursion.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+In the Implementation section, we described our experiment and code. The code for this project was comprehensive because it allowed us to gather a significant number of data points. These data points included variables such as run-time, operation count, rotation count, and tree height.  We also described how we performed each trial and how we corrected for noisy data and autocorrelation. This experiment and code provided a foundation for performing our empirical analysis.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Our empirical analysis was aimed at supporting our conclusions drawn in our theoretical analysis. Our analysis used both descriptive and inferential methods. For the descriptive portion of the analysis, we reviewed three graphs, which supported the theoretical analysis. We also used inferential techniques by regressing $operations ~ log(n)$. This model showed favorable characteristics and continued to support our theoretical analysis.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+This project was exciting and intense. Our biggest lesson was being able to effectively scope out work. The initial plan for the project was ambitious, and this led to a significant amount of lost time. This project also highlighted the importance of a theoretical analysis. Seeing that our linear model could only account for 52% of the variation in the data was alarming. This research also revealed the power of self-balancing trees. For little cost, we can have a tree that is guaranteed to have $O(log(n))$ performance. We demonstrated this performance by inserting over 50 million values into our tree. Overall, this was a successful project because it showed the power, performance, and practical use of an AVL tree.
 
 
 

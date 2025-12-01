@@ -105,7 +105,7 @@ static void __get_insertion_time(char* benchmark_file, char* benchmark_name, cha
                     i, benchmark_name, num, avg_time, tree->total_Nodes, tree->total_operations, tree->root->height, tree->rotations);
             results[result_index++] = strdup(buffer);
 
-            printf("\tProcessed %d (avg: %.9f sec)\n", i, avg_time);
+            printf("\tProcessed %d with and avg of %.9f sec\n", i, avg_time);
         }
     }
 
@@ -221,29 +221,36 @@ end_benchmark:
 }
 
 
-
-
-
-
 /**
  * public function which runs the AVL benchmarking
  * @param args command line arguments
  */
 void run_avl_benchmarks(CommandLineArgs args) {
-
+    // WE copy over this filename
+    char filename[512];
+    
     // Insertion Benchmarks
-    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_avl_insertion" ,"./data/results/avl_inorder_results.csv", args.total_tree_size, args.increment_tree_size);
-    __get_insertion_time("./data/samples/random_list.csv", "random_avl_insertion" ,"./data/results/avl_random_results.csv", args.total_tree_size, args.increment_tree_size);
+    snprintf(filename, sizeof(filename), "%savl_inorder_results.csv", args.output_folder);
+    __get_insertion_time("./data/samples/inorder_list.csv", "inorder_avl_insertion", filename, args.total_tree_size, args.increment_tree_size);
+    
+    snprintf(filename, sizeof(filename), "%savl_random_results.csv", args.output_folder);
+    __get_insertion_time("./data/samples/random_list.csv", "random_avl_insertion", filename, args.total_tree_size, args.increment_tree_size);
     
     //Search Benchmarks
-    __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_search", "./data/results/avl_random_search_results.csv",
-                                    args.total_tree_size, args.increment_tree_size, args.batch_size,SEARCH_OP);
-    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_search", "./data/results/avl_inorder_search_results.csv",
-                                    args.total_tree_size, args.increment_tree_size, args.batch_size,SEARCH_OP);
+    snprintf(filename, sizeof(filename), "%savl_random_search_results.csv", args.output_folder);
+    __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_search", filename,
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size, SEARCH_OP);
+    
+    snprintf(filename, sizeof(filename), "%savl_inorder_search_results.csv", args.output_folder);
+    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_search", filename,
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size, SEARCH_OP);
 
     // Delete Benchmarks
-    __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_delete", "./data/results/avl_random_delete_results.csv",
-                                    args.total_tree_size, args.increment_tree_size, args.batch_size,DELETE_OP);
-    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_delete", "./data/results/avl_inorder_delete_results.csv",
-                                    args.total_tree_size, args.increment_tree_size, args.batch_size,DELETE_OP);
+    snprintf(filename, sizeof(filename), "%savl_random_delete_results.csv", args.output_folder);
+    __get_regular_operation_time("./data/samples/random_list.csv", "random_avl_delete", filename,
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size, DELETE_OP);
+    
+    snprintf(filename, sizeof(filename), "%savl_inorder_delete_results.csv", args.output_folder);
+    __get_regular_operation_time("./data/samples/inorder_list.csv", "inorder_avl_delete", filename,
+                                    args.total_tree_size, args.increment_tree_size, args.batch_size, DELETE_OP);
 }

@@ -22,6 +22,7 @@
         "istream": "c",
         "bench_utils.h": "c",
         "stdlib.h": "c",
-        "ratio": "c"
+        "ratio": "c",
+        "avl.h": "c"
     }
 }

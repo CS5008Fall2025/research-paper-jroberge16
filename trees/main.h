@@ -7,6 +7,7 @@ typedef struct CommandLineArgs {
     int increment_tree_size;
     int batch_size;
     char dataStructure[16];
+    char output_folder[256];
 } CommandLineArgs;
 
 CommandLineArgs processCommandLineArgs(int argc, char** argv);

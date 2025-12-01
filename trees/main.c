@@ -21,6 +21,10 @@ CommandLineArgs processCommandLineArgs(int argc, char** argv){
         args.total_tree_size = 25000000;
         args.increment_tree_size = 50000;
         args.batch_size = 5000;
+
+        strncpy(args.output_folder, "./data/results/", sizeof(args.output_folder) - 1);
+        args.output_folder[sizeof(args.output_folder) - 1] = '\0';
+        
         strncpy(args.dataStructure, "avl", sizeof(args.dataStructure) - 1);
         args.dataStructure[sizeof(args.dataStructure) - 1] = '\0';
     }
@@ -36,6 +40,10 @@ CommandLineArgs processCommandLineArgs(int argc, char** argv){
         args.total_tree_size = atoi(argv[2]);
         args.increment_tree_size = atoi(argv[3]);
         args.batch_size = atoi(argv[4]);
+
+        // Defualt output folder
+        strncpy(args.output_folder, "./data/results/", sizeof(args.output_folder) - 1);
+        args.output_folder[sizeof(args.output_folder) - 1] = '\0';
     } else{
         printf("Error: Invalid number of arguments.\n");
         printf("Args should be <data_structure> <total_tree_size> <increment_tree_size> <batch_size>\n");

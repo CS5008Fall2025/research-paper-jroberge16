@@ -1,24 +1,21 @@
-# To Big for git
-./data/results/*
-./data/samples/*
-
 # .venv folder
 .venv/
 
 # .vscode folder
 .vscode/
 
-# ignore binnaries
+# Binaries
 *.exe
-
-
-# Add these to .gitignore
-*.csv
 *.out
 *.o
+
+# Python
 *.pyc
 __pycache__/
 .ipynb_checkpoints/
 
-data/results/*
-data/samples/*
+# Data files (too big for git)
+*.csv
+data/results/
+data/samples/
+test/test_results/

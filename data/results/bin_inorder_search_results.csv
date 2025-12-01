@@ -1,6 +1,0 @@
-id,run_type,tree_size,batch_size,total_elapsed_time,ops_count
-1,inorder_bin_search,10,5,9.5300000000e-07,20
-2,inorder_bin_search,20,5,3.4700000000e-07,40
-3,inorder_bin_search,30,5,4.6400000000e-07,60
-4,inorder_bin_search,40,5,5.3000000000e-07,80
-5,inorder_bin_search,50,5,6.2100000000e-07,100

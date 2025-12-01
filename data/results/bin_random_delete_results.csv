@@ -1,6 +1,0 @@
-id,run_type,tree_size,batch_size,total_elapsed_time,ops_count
-1,random_bin_delete,10,5,7.6800000000e-07,4
-2,random_bin_delete,20,5,1.6700000000e-07,4
-3,random_bin_delete,30,5,1.8400000000e-07,4
-4,random_bin_delete,40,5,1.1700000000e-07,4
-5,random_bin_delete,50,5,1.1100000000e-07,4

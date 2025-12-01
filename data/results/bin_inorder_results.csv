@@ -1,6 +1,0 @@
-id,run_type,number_added,avg_time_per_insert,total_nodes,operation_count
-10,inorder_bin_insertion,99999979,0.000000079,10,20
-20,inorder_bin_insertion,99999962,0.000000077,20,40
-30,inorder_bin_insertion,99999944,0.000000108,30,60
-40,inorder_bin_insertion,99999927,0.000000112,40,80
-50,inorder_bin_insertion,99999907,0.000000389,50,100

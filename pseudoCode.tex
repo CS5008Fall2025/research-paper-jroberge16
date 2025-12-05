@@ -1,0 +1,296 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % For align* environment
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\title{test}
+\author{Joshua Roberge}
+\date{October 2025}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{algorithm}
+\caption{Right Rotate}
+\begin{algorithmic}[1]
+\State $\triangleright$ \text{Trigger by, left inbalance $B_F(3) = 2$ and 2's $B_F \geq 0$}
+\Function{RightRotate}{cur}
+    \State $\triangleright$ \text{Current = 3, we grab it left child (2) }
+    \State cur\_left = cur.left
+    \State $\triangleright$ \text{This is NULL in the given example}
+    \State cur\_left\_right = cur\_left.right
+    \State
+    \State $\triangleright$ \text{Node 2 becomes root}
+    \State cur\_left.right = cur
+    \State $\triangleright$ \text{re-attach sub-tree}
+    \State cur.left = cur\_left\_right
+    \State
+    \State $\triangleright$ \text{Recalculate Heights}
+    \State cur.height = 1 
+        + max(get\_avl\_height(cur.left),\\
+        \hspace{7.5em} get\_avl\_height(cur.right))
+    \State
+    \State cur\_left.height = 1 
+        + max(get\_avl\_height(cur\_left.left),\\
+        \hspace{9em} get\_avl\_height(cur\_left.right))
+    \State
+    \State $\triangleright$ \text{Return the new root}
+    \State \Return cur\_left
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Left Rotate}
+\begin{algorithmic}[1]
+\State $\triangleright$ \text{Trigger by, right imbalance $B_F(1) = -2$ and 2's $B_F \leq 0$}
+\Function{LeftRotate}{cur}
+    \State $\triangleright$ \text{Current = 1, we grab its right child (2)}
+    \State cur\_right = cur.right
+    \State $\triangleright$ \text{This is NULL in the given example}
+    \State cur\_right\_left = cur\_right.left
+    \State
+    \State $\triangleright$ \text{Node 2 becomes root}
+    \State cur\_right.left = cur
+    \State $\triangleright$ \text{re-attach sub-tree}
+    \State cur.right = cur\_right\_left
+    \State
+    \State $\triangleright$ \text{Recalculate Heights}
+    \State cur.height = 1 
+        + max(get\_avl\_height(cur.left),\\
+        \hspace{7.5em} get\_avl\_height(cur.right))
+    \State
+    \State cur\_right.height = 1 
+        + max(get\_avl\_height(cur\_right.left),\\
+        \hspace{9em} get\_avl\_height(cur\_right.right))
+    \State
+    \State $\triangleright$ \text{Return the new root}
+    \State \Return cur\_right
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Left-Right Rotate}
+\begin{algorithmic}[1]
+\State $\triangleright$ \text{Trigger by left-right imbalance ie}
+\State \hspace{1.5em} \text{$B_F(3)>1$ and$B_F(1) < 0$}
+\Function{Left-Right-Rotate}{cur}
+    \State $\triangleright$ \text{Fixes the Zig-Zag,}
+    \State \hspace{1.5em} \text{flattens the left imbalance}
+    \State cur.left = LeftRotate(cur.left)
+    \State $\triangleright$ \text{Perform right rotation,}
+    \State \hspace{1.5em} \text{return new root (2)}
+    \State \Return RightRotate(cur)
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Right-Left Rotate}
+\begin{algorithmic}[1]
+\State $\triangleright$ \text{Trigger by right-left imbalance ie}
+\State \hspace{1.5em} \text{$B_F(1)<-11$ and$B_F(3) > 0$}
+\Function{Right-Left-Rotate}{cur}
+    \State $\triangleright$ \text{Fixes the Zig-Zag,}
+    \State \hspace{1.5em} \text{flattens the right imbalance}
+    \State cur.right = RightRotate(cur.right)
+    \State $\triangleright$ \text{Perform left rotation,}
+    \State \hspace{1.5em} \text{return new root (2)}
+    \State \Return LeftRotate(cur)
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+\setlength{\algorithmicindent}{.5em}
+
+\begin{algorithm}
+\caption{AVL-Insert}
+\begin{algorithmic}[1]
+\Function{Insert-AVL}{cur, value}
+    \If{cur = NULL}
+        \State $\triangleright$ \text{Creates a new Node, also our base case which end recursive calls}
+        \State \Return CreateNode(value)
+    \EndIf
+
+    \State $\triangleright$  \text{Search Phase: recursive calls, will run until leaf is reach $log(n)$}
+    \If{$value < cur.value$}
+        \State cur.left = Insert-AVL(cur.left, value)
+    \ElsIf{$value > cur.value$}
+        \State cur.right = Insert-AVL(cur.right, value)
+    \Else
+        \State $\triangleright$ \text{Skip duplicates}
+        \State \Return cur
+    \EndIf
+
+    \State $\triangleright$ \text{Rebalance/Metric Phase: these calls happen as we move back}\\ 
+    \hspace{.7cm}\text{ up the tree after recursing downward $log(n)$}
+    \State cur.height $\gets 1 + \max(\,Height(cur.left),\ Height(cur.right)\,)$
+    
+    \State cur $\gets$ Rebalance(cur)
+
+    \State \Return cur
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+\setlength{\algorithmicindent}{.5em}
+
+\begin{algorithm}
+\caption{Search-AVL}
+\begin{algorithmic}[1]
+\State $\triangleright$ \text{A simple BST search, but we are guaranteed}\\
+\hspace{.7cm}\text { to traverse a tree that is $h\le log(n)$}
+\Function{Search-AVL}{root, value}
+    \State cur = root
+    \While{cur $\neq$ NULL} \quad{$\triangleright$ {while loop = $O(log(n))$}
+        \If{$cur.value = value$}
+            \State \Return cur
+        \ElsIf{$value < cur.value$}
+            \State cur = cur.left
+        \Else
+            \State cur = cur.right
+        \EndIf
+    \EndWhile
+    \State \Return NULL
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+\setlength{\algorithmicindent}{.5em}
+
+\begin{algorithm}
+\caption{Delete-AVL}
+\begin{algorithmic}[1]
+\Function{Delete-AVL}{cur, value}
+    \State $\triangleright$ \text{No Node found, base case}
+    \If{cur == NULL}
+        \State \Return cur
+    \EndIf
+
+    \State $\triangleright$ \text{Phase 1: search for node to delete $log(n)$}
+    \If{$value < cur.value$}
+        \State cur.left = Delete-AVL(cur.left, value)
+    \ElsIf{$value > cur.value$}
+        \State cur.right = Delete-AVL(cur.right, value)
+    \Else
+        \State $\triangleright$ \text{Phase 2: we found the Node, delete it $log(n)$}
+        \If{$cur.left == NULL$}
+            \State temp = cur.right
+            \State delete(cur)
+            \State \Return temp
+        \ElsIf{cur.right == NULL}
+            \State temp = cur.left
+            \State delete(cur)
+            \State \Return temp
+        \Else
+            \State $\triangleright$ \text{get min node can run until $log(n)$}
+            \State min\_node = Get-Min-Node(cur.right)
+            \State cur.value = min\_node.value
+            \State cur.right = Delete-AVL(cur.right, min\_node.value)
+        \EndIf
+    \EndIf
+
+    \State $\triangleright$ \text{Phase 3: move back up tree and rebalance + height metrics (log(n))}
+    \State cur.height $= 1 + \max(\,Height(cur.left),\ Height(cur.right)\,)$
+    \State cur = Rebalance(cur)
+    \State \Return cur
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+
+
+
+\newpage
+\clearpage
+
+\begin{proof}[Direct Proof:]
+Let $N_h$ be the minimum number of nodes in an AVL tree of height $h$. We claim that
+\[
+\forall\, h \ge 0,\quad h_n \le \mathcal{O}(\log(n)).
+\]
+To prove this claim, we first define the recursive relationship, then derive the upper bound of $N_h$, and finally finish by showing the's upper bound of $h$. When taken together, these steps will show that $ h_n \le \mathcal{O}(\log(n))$\\
+
+\textbf{Recursive Relationship}:
+\begin{quote}
+ Let $N_L$ and $N_R$ be the minimum number of nodes for $N_h$'s left and right sub-tree. $N_h$ can be defined as a sum of $N_h = N_{L} + N_{R} +1$ (+1 is for the connecting node). Since we are dealing with the worst-case scenario and  we are constrained by our AVL's balance factor ($|B_F| \leq 1$), we derive the following relationship:
+ \[
+ N_L = N_{h-1} \text{, }
+ N_R = N_{h-2}
+ \]
+ therefore,
+ \[
+  N_h = N_{h-1} + N_{h-2} + 1
+ \] 
+\end{quote}
+\begin{proof}[\\Proof by Strong Induction (Proving $N_h$'s Lower Bound):]
+\begin{quote}
+
+\textbf{\\Base Cases:}
+\begin{itemize}
+    \item $N_1 = 1$, One root node
+    \item $N_2 = 2 \ge 2^{\frac{2}{2}} $: One root node and child
+    \item $N_3 = N_1 + N_2 + 2 = 2+1+1=4 \ge 2^{\frac{2}{2}} $: using the defined recursive relationship.
+\end{itemize}
+
+\textbf{Inductive Hypothesis:} Assume $k \ge 3$ and $\forall h$ s.t. $2 \ge h \le k$ that $N_h \ge 2^{\frac{h}{2}}$\\
+
+
+
+\textbf{Inductive Step:}
+\begin{align*}
+N_{k+1} &= N_k + N_{k-1} + 1\\
+        &> N_{k-1} + N_{k-1} + 1
+        \quad\text{(Since we are proving the upper bound we can drop $N_k$ and $1$)}\\
+        &> 2 \cdot N_{k-1}\\
+        &> 2 \cdot 2^{(k-1)/2}
+        \quad\text{(Inductive Hypothesis)}\\
+        &> 2^{1 + (k-1)/2}\\
+        &> 2^{(k+1)/2}
+\end{align*}
+Therefore: $N_{k+1} \ge 2^{\frac{k+1}{2}}$\\
+\textbf{Conclusion}: $N_h \ge 2^{\frac{h}{2}}$ $\forall h\ge 2$
+\end{quote}
+\end{proof}
+
+
+\textbf{$h$'s Upper Bound}
+\begin{quote}
+    
+Taking the relationship derived above, we can derive $H$'s upper bound:
+\begin{align*}
+    N_h &> 2^{h/2}\\
+    \log_2(N_h) &> \frac{h}{2}\\
+    h &< 2\log_2(N_h)
+\end{align*}
+\end{quote}
+
+\textbf{Conclusion:}
+Since $n \ge N_h$ and $h < 2\log_2(N_h)$, we have $h = \mathcal{O}(\log n)$. Therefore, the height of an AVL tree with $n$ nodes is $\mathcal{O}(\log n)$.
+\end{proof}
+\end{document}

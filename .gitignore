@@ -15,7 +15,5 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Data files (too big for git)
-*.csv
 data/results/
-data/samples/
 test/test_results/

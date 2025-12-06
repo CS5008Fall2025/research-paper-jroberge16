@@ -8,10 +8,10 @@
 <hr>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-A traditional binary search tree (BST) is a data structure that, on average, provides $\log(n)$ for insertions, deletions, and searching, but our worst-case runtime is significantly worse than this. A BST has a significant flaw in that its performance is dependent on insertion order. When a binary tree is unbalanced, its performance is affected and can result in a worst-case scenario of O(n) for numerous operations [^5].
+A traditional binary search tree (BST) is a data structure that, on average, provides $O(\log(n))$ for insertions, deletions, and searching, but our worst-case runtime is significantly worse than this. A BST has a significant flaw in that its performance is dependent on insertion order. When a binary tree is unbalanced, its performance is affected and can result in a worst-case scenario of O(n) for numerous operations [^5].
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-This research reviews and analyzes the AVL data structure. An AVL is a self-balancing tree that ensures a BST has a height of $O(\log(n))$ [^11]. To understand the effectiveness of this algorithm, our research will be discussed in four sections:
+This research reviews and analyzes the AVL data structure. This data structure is a self-balancing tree that ensures a BST has a height of $O(\log(n))$ [^11]. To understand the effectiveness of this algorithm, our research will be discussed in four sections:
 
 1. __AVL Data Structure__: A general discussion of the core concepts behind the algorithm and its practical implementations.
 2. __Theoretical Analysis__: Showing $h = O(\log(n))$ and then analyzing Big(O) for insertion, deletion, and searching.
@@ -43,7 +43,7 @@ AVL trees are foundational to computer science because they have characteristics
 </div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-Figure 1 outlines some fundamental properties of an AVL tree. Each node in an AVL tree stores its height, or simply put, the length of the longest path beneath it.  With the height of a node, we can then calculate a node’s  balance factor ($B_F$), which is the difference in the height of a node's left and right subtrees. When a $B_F$ is positive, our left subtree is taller, and when it is negative, our right subtree is taller. We use $B_F$ to identify imbalance within our tree, and if $|B_F| > 1$ we correct for this imbalance. When an AVL tree is constrained to this property, we are guaranteed to have a height of $O(log(n))$.  To maintain the property of $|B_F| \le 1$, an AVL tree performs an operation called a rotation [^5].
+Figure 1 outlines some fundamental properties of an AVL tree. Each node in an AVL tree stores its height, or simply put, the length of the longest path beneath it.  With the height of a node, we can then calculate a node’s  balance factor ($B_F$), which is the difference in the height of a node's left and right subtrees. When a $B_F$ is positive, our left subtree is taller, and when it is negative, our right subtree is taller. We use $B_F$ to identify imbalance within our tree, and if $|B_F| > 1$ we correct for this imbalance. When an AVL tree is constrained to this property, we are guaranteed to have a height of $O(\log(n))$.  To maintain the property of $|B_F| \le 1$, an AVL tree performs an operation called a rotation [^5].
 
 ### Rotations
 
@@ -73,12 +73,12 @@ When we have an imbalance that has a zigzag pattern, we perform either a left-ri
 ## Theoretical Analysis:
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-In this section, we will perform a theoretical runtime analysis for an AVL tree. To accomplish this, our main objective will be to show that the height of an AVL tree is bounded by $O(log(n))$. After proving that our tree height is constrained, we will subsequently rely on this fact and then show that the functions search, deletion, and insertion have  $T(n) = O(log(n))$.
+In this section, we will perform a theoretical runtime analysis for an AVL tree. To accomplish this, our main objective will be to show that the height of an AVL tree is bounded by $O(\log(n))$. After proving that our tree height is constrained, we will subsequently rely on this fact and then show that the functions search, deletion, and insertion have  $T(n) = O(\log(n))$.
 
 ### Proving AVL’s Height
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-In this section, we aim to prove, using strong induction, that the height ($h$) of an AVL tree is $O(log(n))$. We will break this section down into two subsections. The first section will present our proof, which relies on the previous work by Goodrich, Moshiri and Mount [^10] [^11] [^12]. In the subsequent section, we will have a detailed discussion of our proof.
+In this section, we aim to prove, using strong induction, that the height ($h$) of an AVL tree is $O(\log(n))$. We will break this section down into two subsections. The first section will present our proof, which relies on the previous work by Goodrich, Moshiri and Mount [^10] [^11] [^12]. In the subsequent section, we will have a detailed discussion of our proof.
 
 <a name="proof"></a>
 
@@ -92,7 +92,7 @@ $$
 \forall\, h \ge 0,\quad h \le O(\log(n)).
 $$
 
-To prove this claim, we first define the recursive relationship, then derive the upper bound of $N_h$, and finally finish by showing the's upper bound of $h$. When taken together, these steps will show that $ h_n \le O(\log(n))$
+To prove this claim, we first define the recursive relationship, then derive the upper bound of $N_h$, and finally finish by showing the upper bound of $h$. When taken together, these steps will show that $ h_n \le O(\log(n))$
 
 __Recursive Relationship__
 <div style="margin-left: 40px;">
@@ -117,9 +117,9 @@ __Proof by Strong Induction (Proving $N_h$'s Lower Bound):__
 <div style="margin-left: 40px;">
 
 _Base Cases_
-- $N_1 = 1$, One root node
-- $N_2 = 2 \ge 2^{\frac{2}{2}} $: One root node and child
-- $N_3 = N_1 + N_2 + 2 = 2+1+1=4 \ge 2^{\frac{2}{2}} $: using the defined recursive relationship
+- $N_0 = 1\ge 2^{\frac{0}{2}}$, One root node
+- $N_1 = 2 \ge 2^{\frac{1}{2}} $: One root node and child
+- $N_2 = N_1 + N_2 + 2 = 2+1+1=4 \ge 2^{\frac{2}{2}} $: using the defined recursive relationship
 
 [^10]
 
@@ -161,7 +161,7 @@ Taking the relationship derived above, we can derive $h$'s upper bound
 
 __Conclusion:__
 
-Since $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $O(h) = O(\log n)$.
+Since $n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h = O(\log n)$.
 </blockquote>
 
 #### Proof Discussion:
@@ -196,7 +196,7 @@ Moshiri’s proof uses a direct proof via algebraic manipulation to show the low
 With the strong induction proof in hand, it was now time to solve for the upper bound of $h$. We were able to show the upper bound of $h$ with simple algebraic manipulation. After manipulating $N_h > 2^{h/2}$, we were able to find that $h < 2\log_2(N_h)$. Using asymptotic notation, we were able to conclude:
 
 
-$n \ge N_h$ and $h < 2\log_2(N_h)$, thus $h =O(\log (n))$
+$n \ge N_h$ and $h < 2 \log_2(N_h)$, thus $h =O(\log (n))$
 
 ### Big-O for Insertion, Deletion and Search
 <div align="center">
@@ -221,10 +221,25 @@ The table above outlines the runtimes for insertion, deletion, and search. These
 </div>
 
 [^14]
+<blockquote>
+  Proof:
 
- ```math
-T(n) = T_{Search}(\log(n)) + T_{RebalanceHeight}(\log(n)) = 2\cdot \log(n) = O(log(n))
-```
+  $f(n) = O(g(n))$  positive $c$ such that $\forall n> n_0$, $|f(n)|\leq c|g(n)|$ given height is $h \leq O(log(n))$
+
+  
+  ```math
+  \begin{align*}
+
+  T(n) &= T_{Search}(n) + T_{RebalanceHeight}(n)\\
+       &= O(\log(n)) + O(\log(n)) \quad{\text{given avl height}}\\
+       &= 2\cdot \log(n) \\
+  \end{align*}
+
+  ```
+  Thus choosing c = 2 and n_0 = 1, we have T(n) = O(log(n))
+
+  **note**: further discussion below on how $T(n)$ was derived.
+</blockquote>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 The above code outlines a recursive definition of our AVL insert function. We can break down this pseudocode into two phases. In the first phase, we search for a location to insert our new value. The search phase ends once we hit a leaf node, and we know this traversal will have $O(\log(n))$ due to our height. Once we hit our leaf node, we will enter phase two: `RebalanceMetrics`. In this phase, we move back up our tree, while updating our height and rebalancing the tree if needed. In this phase, we are guaranteed to make no more than two rotation [^11]. Note that the best-case, worst-case, and average-case for inserting into an AVL tree are all $O(log(n))$  since we must always traverse to the leaf node and back up again.
@@ -239,13 +254,25 @@ In our code, we used a recursive definition to define AVL’s insert function. U
 </div>
 
 [^14]
+<blockquote>
+  Proof:
+
+  $f(n) = O(g(n))$  positive $c$ such that $\forall n> n_0$, $|f(n)|\leq c|g(n)|$ given height is $h \leq O(log(n))$
+
+  
+  ```math
+  \begin{align*}
+
+  T(n) &= T_{Search}(n)\\
+       &= O(\log(n)) \quad{\text{given avl height}}\\
+  \end{align*}
+  ```
+  Thus choosing c = 1 and n_0 = 1, we have T(n) = O(log(n))
+
+  **note**: further discussion below on how $T(n)$ was derived.
+</blockquote>
 
 
-```math
-
-T(n) = T_{search}(\log(n))
-
-```
 &nbsp;&nbsp;&nbsp;&nbsp;
 The above code outlines our definition for searching an AVL tree. We start off with a `while` loop, which iterates until we find our search value. Given the worst-case scenario, we must traverse to the leaf node, which would be $O(\log(n))$. Looking beyond a worst-case scenario, our best-case would be $O(1)$, which assumes we find our value in the root node. Our average-case would traverse halfway down the tree, which would still be a factor of $log(n)$ .
 
@@ -261,14 +288,27 @@ Our search function uses an iterative approach. As shown in the above code, this
 
 [^14] [^8]
 
-```math
+<blockquote>
+  Proof:
 
-T(n) = T_{Search}(\log(n)) + T_{FindReplacement}(\log(n)) + T_{MetricsRotations}(\log(n)) = 3\cdot \log(n) = O(log(n))
+  $f(n) = O(g(n))$  positive $c$ such that $\forall n> n_0$, $|f(n)|\leq c|g(n)|$ given height is $h \leq O(log(n))$
 
-```
+  
+  ```math
+  \begin{align*}
+
+  T(n)  &= T_{Search}(n) + T_{FindReplacement}(n) + T_{MetricsRotations}(n)\\
+        &= O(\log(n)) + O(\log(n)) + O(\log(n)) \quad{\text{given avl height}}\\
+        &= 3\cdot \log(n)
+  \end{align*}
+  ```
+  Thus choosing c = 3 and n_0 = 1, we have T(n) = O(log(n))
+
+  **note**: further discussion below on how $T(n)$ was derived.
+</blockquote>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-The above code outlines our process for deleting a value from an AVL tree. To accomplish this goal, our code iterates through three distinct phases. In the first phase, we move down to the node we want to delete, which under the worst-case, would be $O(log(n)) = O(h)$. Once we find the value to delete, we move into phase two. The goal of phase two is to find a replacement value for our deleted node. To find a replacement value, we will find the minimum value in the deleted node's right subtree. After finding this node, we move it to the deleted node’s location. This operation, under a worst-case scenario, contributes $O \log(n)$ to our runtime. In our third and final phase, we move back up our tree, while recalculating height and performing any necessary rotations. Unlike insertion, which at most can cause two rotations, deleting can have a cascading effect, which will cause $log(n)$ rotations. Taken together, we arrive at a worst-case scenario of  $O(log(n))$, which is outlined in the equation above. Since we must always find a replacement node in this process, which is $O(log(n))$ deep, our best and average case will also be $\log(n)$.
+The above code outlines our process for deleting a value from an AVL tree. To accomplish this goal, our code iterates through three distinct phases. In the first phase, we move down to the node we want to delete, which under the worst-case, would be $h\leq O(log(n))$. Once we find the value to delete, we move into phase two. The goal of phase two is to find a replacement value for our deleted node. To find a replacement value, we will find the minimum value in the deleted node's right subtree. After finding this node, we move it to the deleted node’s location. This operation, under a worst-case scenario, contributes $O \log(n)$ to our runtime. In our third and final phase, we move back up our tree, while recalculating height and performing any necessary rotations. Unlike insertion, which at most can cause two rotations, deleting can have a cascading effect, which will cause $log(n)$ rotations. Taken together, we arrive at a worst-case scenario of  $O(log(n))$, which is outlined in the equation above. Since we must always find a replacement node in this process, which is $O(log(n))$ deep, our best and average case will also be $\log(n)$.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 Our definition of deletion uses recursion, which means each recursive call contributes to our overall memory footprint. Each individual recursive call uses $O(1)$ space, and thus we need only to account for the total stack depth, which is:
@@ -411,7 +451,7 @@ As a final analysis, we decided to perform a simple linear regression. The goal 
 Our experiment was able to produce an $R^2$ value of 52%. Our $R^2$ reveals how important a theoretical analysis is for any study. Data for an empirical analysis can be very noisy, and this noise can make results ambiguous. Although we had a poor $R ^2$ value, what we really care about is our residuals. By studying our residuals, we can determine our goodness of fit.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-All our indicators show that our line is BLUE (best linear unbiased estimator). Our QQ plot shows that our residuals are normally distributed. The residual plot shows homoscedasticity and normally distributed residuals. The only violation of BLUE would be the linearity assumption. The linearity assumption may be broken since we can see a slight stepping pattern in our residual plot. This stepping pattern can be explained with the height of our tree increasing for specific ranges of $n$. In summary, our model shows $log(n)$ performance, which aligns with our theoretical analysis.
+All our indicators suggest that our line is BLUE (best linear unbiased estimator). Our QQ plot shows that our residuals are normally distributed. The residual plot shows homoscedasticity and normally distributed residuals. The only violation of BLUE would be the linearity assumption. The linearity assumption may be broken since we can see a slight stepping pattern in our residual plot. This stepping pattern can be explained with the height of our tree increasing for specific ranges of $n$. In summary, our model shows $\log(n)$ performance, which aligns with our theoretical analysis.
 
 ## Conclusion
 
@@ -422,16 +462,16 @@ This report presents a comprehensive analysis of AVL trees. In this analysis, we
 In the first section, AVL Data Structure, we began by describing an AVL tree’s history and use in practical applications. An AVL tree can often be found in Linux kernels, database indices, and so on. After showing the practical aspects of an AVL tree, we went on to describe how an AVL tree maintains its balance. An AVL tree identifies imbalance by using the balance factor, and then corrects for that imbalance using rotations.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-After providing an overview of an AVL tree, we went on to perform a theoretical runtime analysis in the next section. We started this analysis by proving that $h = O(log(n))$. This proof was foundational because it was subsequently relied on for our Big-O analysis for search, deletion, and insertion. All our time complexities revealed $O(log(n))$ performance. Our space complexity analysis also revealed why it is often better to use iteration over recursion.
+After providing an overview of an AVL tree, we went on to perform a theoretical runtime analysis in the next section. We started this analysis by proving that $h \leq O(\log(n))$. This proof was foundational because it was subsequently relied on for our Big-O analysis for search, deletion, and insertion. All our time complexities revealed $O(\log(n))$ performance. Our space complexity analysis also revealed why it is often better to use iteration over recursion.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 In the Implementation section, we described our experiment and code. The code for this project was comprehensive because it allowed us to gather a significant number of data points. These data points included variables such as run-time, operation count, rotation count, and tree height.  We also described how we performed each trial and how we corrected for noisy data and autocorrelation. This experiment and code provided a foundation for performing our empirical analysis.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-Our empirical analysis was aimed at supporting our conclusions drawn in our theoretical analysis. Our analysis used both descriptive and inferential methods. For the descriptive portion of the analysis, we reviewed three graphs, which supported the theoretical analysis. We also used inferential techniques by regressing $operations ~ log(n)$. This model showed favorable characteristics and continued to support our theoretical analysis.
+Our empirical analysis was aimed at supporting our conclusions drawn in our theoretical analysis. Our analysis used both descriptive and inferential methods. For the descriptive portion of the analysis, we reviewed three graphs, which supported the theoretical analysis. We also used inferential techniques by regressing $operations ~ \log(n)$. This model showed favorable characteristics and continued to support our theoretical analysis.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-This project was exciting and intense. Our biggest lesson was being able to effectively scope out work. The initial plan for the project was ambitious, and this led to a significant amount of lost time. This project also highlighted the importance of a theoretical analysis. Seeing that our linear model could only account for 52% of the variation in the data was alarming. This research also revealed the power of self-balancing trees. For little cost, we can have a tree that is guaranteed to have $O(log(n))$ performance. We demonstrated this performance by inserting over 50 million values into our tree. Overall, this was a successful project because it showed the power, performance, and practical use of an AVL tree.
+This project was exciting and intense. Our biggest lesson was being able to effectively scope out work. The initial plan for the project was ambitious, and this led to a significant amount of lost time. This project also highlighted the importance of a theoretical analysis. Seeing that our linear model could only account for 52% of the variation in the data was alarming. This research also revealed the power of self-balancing trees. For little cost, we can have a tree that is guaranteed to have $O(\log(n))$ performance. We demonstrated this performance by inserting over 50 million values into our tree. Overall, this was a successful project because it showed the power, performance, and practical use of an AVL tree.
 
 
 
@@ -505,7 +545,7 @@ AVL Search
 
 [^2]: Beadle, A. (n.d.). Historical origins of data structures and algorithms. csc162. https://www.cs.rochester.edu/~hbeadle/csc162/_static/lectures/ds_history.pdf 
 
-[^3]: Brown, R. A. (2024). Comparative performance of the AVL tree to three variants of the red-black tree. Arxiv. https://doi.org/10.22541/au.173377871.17799160/v1 
+[^3]: Brown, R. A. (2024). Comparative performance of the AVL tree to three variants of the red-black tree. Arxiv. https://arxiv.org/pdf/2406.05162
 
 [^4]: Chen, L., Zhang, N., Sun, H.-M., Chang, C.-C., Yu, S., & Choo, K.-K. R. (2019). Secure search for encrypted personal health records from Big Data nosql databases in cloud. Computing, 102(6), 1521–1545. https://doi.org/10.1007/s00607-019-00762-z 
 
@@ -524,7 +564,7 @@ AVL Search
 
 [^12]: Mount, D. (2019). CMSC 420: Lecture 5 AVL Trees. https://www.cs.umd.edu/class/fall2019/cmsc420-0201/Lects/lect05-avl.pdf 
 
-[^13]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://doi.org/10.1145/1012888.1005742 
+[^13]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://benpfaff.org/papers/libavl.pdf 
 
 [^14]: Sadeghian, P. (2021). Advanced tree structures CMSC132. CMSC132. http://www.cs.umd.edu/class/fall2021/cmsc132-030X/labs/Week15/AdvancedTrees.pdf 
 

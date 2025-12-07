@@ -201,11 +201,12 @@ $n \ge N_h$ and $h < 2 \log_2(N_h)$, thus $h =O(\log (n))$
 ### Big-O for Insertion, Deletion and Search
 <div align="center">
 
-| Function | Time Complexity | Space Complexity (iterative) | Space Complexity (recursive) |
-|----------|-----------------|------------------------------|------------------------------|
-| Insertion | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
-| Search | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
-| Delete | $O(\log(n))$ | $O(1)$ | $O(\log(n))$ |
+| Operation     | Time Best Case | Time Average Case | Time Worst Case | Space Worst (Iterative) | Space Worst (Recursive) |
+| ------------- | --------- | ------------ | ---------- | ----------------- | ----------------- |
+| **Search**    | O(1)      | O(log n)     | O(log n)   | O(1)              | O(log n)          |
+| **Insertion** | O(log n)  | O(log n)     | O(log n)   | O(1)              | O(log n)          |
+| **Deletion**  | O(log n)  | O(log n)     | O(log n)   | O(1)              | O(log n)          |
+
 
 </div>
 
@@ -213,7 +214,7 @@ $n \ge N_h$ and $h < 2 \log_2(N_h)$, thus $h =O(\log (n))$
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-The table above outlines the runtimes for insertion, deletion, and search. These runtimes are made possible because an AVL tree’s height is $O(log(n))$ ([see proof](#proof)); This means, the cost of traversing to a leaf node will also be $O(\log(n))$. To explain and validate the above runtimes, we will walk through each of the functions’ pseudocode and then explain there time and space complexity.
+The table above outlines the runtimes for insertion, deletion, and search. These runtimes are made possible because an AVL tree’s height is $O(log(n))$ ([see proof](#proof)); This means, the cost of traversing to a leaf node will also be $O(\log(n))$. Also, note that the best, average, and worst-case scenarios are all the same for insertion and deletion, but there is some divergence when examining searching. To explain and validate the above runtimes, we will walk through each of the functions’ pseudocode and then explain their time and space complexity.
 
 #### Insertion:
 <div align="center">
@@ -242,10 +243,10 @@ The table above outlines the runtimes for insertion, deletion, and search. These
 </blockquote>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-The above code outlines a recursive definition of our AVL insert function. We can break down this pseudocode into two phases. In the first phase, we search for a location to insert our new value. The search phase ends once we hit a leaf node, and we know this traversal will have $O(\log(n))$ due to our height. Once we hit our leaf node, we will enter phase two: `RebalanceMetrics`. In this phase, we move back up our tree, while updating our height and rebalancing the tree if needed. In this phase, we are guaranteed to make no more than two rotation [^11]. Note that the best-case, worst-case, and average-case for inserting into an AVL tree are all $O(log(n))$  since we must always traverse to the leaf node and back up again.
+The above code outlines a recursive definition of our AVL insert function. We can break down this pseudocode into two phases. In the first phase, we search for a location to insert our new value. The search phase ends once we hit a leaf node, and we know this traversal will have $O(\log(n))$ due to our height. Once we hit our leaf node, we will enter phase two: `RebalanceMetrics`. In this phase, we move back up our tree, while updating our height and rebalancing the tree if needed. In this phase, we are guaranteed to make no more than two rotations [^11]. Note that the best-case, worst-case, and average-case for inserting into an AVL tree are all $O(log(n))$  since we must always traverse to the leaf node and back up again.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-In our code, we used a recursive definition to define AVL’s insert function. Using a recursive definition means that each stack call will contribute to our total memory footprint. We are recursively traversing to our root node, which means $S(n) = O(\log(n))$. This recursive definition for an AVL tree is purely academic because we can define this function iteratively, which would have $S(n) = O(1)$ [^1].
+In our code, we used a recursive definition to define AVL’s insert function. Using a recursive definition means that each stack call will contribute to our total memory footprint. We are recursively traversing to our root node, which means $S(n) = O(\log(n))$ for best average and worst case. This recursive definition for an AVL tree is purely academic because we can define this function iteratively, which would have $S(n) = O(1)$ for all cases [^1].
 
 
 #### Search:
@@ -318,7 +319,6 @@ Our definition of deletion uses recursion, which means each recursive call contr
 S(n) = StackDepth = O(log(n))
 
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;
 It should be noted that this is a recursive definition for deletion, but there are iterative solutions. If we were to use an iterative solution, we would have $S(n) = O(1)$. To achieve this space complexity, we would need to implement parent pointers for each node, so that we could traverse backwards [^7].
 
 
@@ -371,12 +371,16 @@ We tracked three types of metrics for our experiment:
 To accommodate our experimental design, we needed a robust code base that was able to accommodate all our metrics. This was no easy feat and took careful planning and plenty of rework. To understand our code, we will discuss our two main modules: trees and benchmarking.
 
 __Trees:__
+<div align="center">
+<img id="right-left-rotation" src="data/images/code_snipets.png" alt="CorePrinciples.png">
+</div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-Our tree module housed the core components for our traditional BST and our AVL tree. Both of our tree implementations were based on Python code found on the site W3Schools, and GeeksforGeeks which we then converted to C code [^14] [^8]. Using this Python code provided a starting point and a valuable learning experience. While converting Python to C, we took this opportunity to create a standard framework between our different types of BSTs.
+Our tree module housed the core components for our traditional BST and our AVL tree. Both of our tree implementations were based on Python code found on the site W3Schools and GeeksforGeeks which we then converted to C code [^14] [^8]. Using this Python code provided a starting point and a valuable learning experience. While converting Python to C, we took this opportunity to create a standard framework between our different types of BSTs.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-Each BST contained two public structs, `Node` and `Index`, and four public functions, create_index, search, insert, and delete. Having this common framework allowed us to easily reuse our benchmarking code across our different tree implementations.
+As shown in the figure above, each BST contains two public structs, `Node` and `Index`, and seven public functions: create_index, search, insert, delete, get height, get balance (ALV only), and free. Please see the theoretical analysis for more details on each function call. We use the `Index` struct, which is an adaptation from the Python implementation, to provide a common container around our data structure. This adaptation enabled us to easily track additional metrics and provided a similar struct between a traditional BST and an AVL tree. What we have done is create a common framework for our different tree implementations, which allowed us to easily reuse our benchmarking code across different tree implementations.
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 Admittedly, our tree module needs refactoring. Although our AVL and BST share a common framework, due to time, we were unable to create generics for them. Having generics would make our code DRY and would make our implementation more modular.
@@ -389,17 +393,24 @@ __Benchmarking:__
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-Our benchmarking library housed the logic for tracking our experiments. Each tree was given its own benchmarking script, which was then called by the main script. Each benchmarking script is composed of two private functions:
+Our benchmarking library houses the logic for tracking our experiments. Each tree was given its own benchmarking script, which was then called by the main script. Each benchmarking script is composed of two private functions:
 * `__get_regular_operation_time`: running experiments for searching and deleting data.
 * `__get_insertion_time`:  tracks the runtime for inserting values.
 
-To run an experiment, the user needs to call `make main` and then call `./main.out`. If the user desires to control the experimental run, they can pass in additional keyword arguments (see figure above).
+To run an experiment, the user needs to call `make main` and then call `./main.out`. If the user desires to control the experimental run, they can pass in additional keyword arguments (see figure above). Due to the size of the dataset used, we were not able to include the 50-million-row dataset, but we did include a subset. To run a sample run, the user can use the following commands:
 
+```terminal
+
+make main
+
+./main.out avl 50000 1000 1000
+
+```
 
 ## Empirical Analysis:
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-In this section, we will review the results from the experiment described in the previous section. This empirical analysis will be used to support our theoretical analysis. This analysis will use both descriptive and inferential analytics. Our descriptive analysis will describe what our various plots are showing. Our inferential analysis will use a linear model to describe our results.
+In this section, we will review the results from the experiment described in the previous section. This empirical analysis will be used to support our theoretical analysis. This analysis will use both descriptive and inferential analytics. Our descriptive analysis will describe what our various plots are showing. Our inferential analysis will use a linear model to describe our results. 
 
 
 ### Operation Counts Vs Function Call:
@@ -564,7 +575,7 @@ AVL Search
 
 [^12]: Mount, D. (2019). CMSC 420: Lecture 5 AVL Trees. https://www.cs.umd.edu/class/fall2019/cmsc420-0201/Lects/lect05-avl.pdf 
 
-[^13]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://benpfaff.org/papers/libavl.pdf 
+[^13]: Pfaff, B. (2004). Performance analysis of bsts in system software. ACM SIGMETRICS Performance Evaluation Review, 32(1), 410–411. https://doi.org/10.1145/1012888.1005742 
 
 [^14]: Sadeghian, P. (2021). Advanced tree structures CMSC132. CMSC132. http://www.cs.umd.edu/class/fall2021/cmsc132-030X/labs/Week15/AdvancedTrees.pdf 
 

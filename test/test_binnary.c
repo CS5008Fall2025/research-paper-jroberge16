@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "../binnary/binnary.h"
+#include "../trees/binnary/binnary.h"
 
 
 

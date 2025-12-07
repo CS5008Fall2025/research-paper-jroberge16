@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "../avl/avl.h"
+#include "../trees/avl/avl.h"
 
 
 void test_avl() {
